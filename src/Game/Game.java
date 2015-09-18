@@ -644,6 +644,9 @@ public class Game implements Serializable, ActionListener {
 
                         addPlayerToGameGui(playerList);
                         playerList.get(player).getPlayerViewGui().enablePlayfield();
+                        for(int s = 0; s < playerList.get(player).getShips().size(); s++){
+                        	playerList.get(player).getShips().get(s).setDownReloadTime();
+                        }
                         if (playerList.get(player) instanceof AiPlayer) {
                             placeAiShip(player, shipsPlaced);
                             gameGui.activatePlayerButton(player);
@@ -664,6 +667,10 @@ public class Game implements Serializable, ActionListener {
 
     }
 
+    /**
+     * Listener für das Starten des Spiels wird hinzugefügt.
+     * 
+     */
     private void addStartGameListener() {
         gameGui.setStartGameButtonListener(new ActionListener() {
 
