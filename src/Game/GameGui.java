@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class GameGui extends JPanel {
 
-    BoxLayout boxLayout;
+    private BoxLayout boxLayout;
 
     private FieldGui[][] emptyMatrix;
     private JPanel emptyMatrixPanel;
@@ -37,18 +37,18 @@ public class GameGui extends JPanel {
     private JButton[] playerButton;
     private JPanel playerListPanel;
 
-    JTextArea textOutputArea;
-    JScrollPane textOutputPanel;
-    JPanel midPanel;
+    private JTextArea textOutputArea;
+    private JScrollPane textOutputPanel;
+    private JPanel midPanel;
 
-    JLabel shipListLabel;
-    JButton[] shipListButtons;
-    JPanel shipListPanel;
+    private JLabel shipListLabel;
+    private JButton[] shipListButtons;
+    private JPanel shipListPanel;
 
-    JPanel componentPanel;
+    private JPanel componentPanel;
 
-    JButton menuButton, saveGameButton, startGameButton, nextPlayerButton, startRoundButton;
-    JPanel buttonPanel;
+    private JButton menuButton, startGameButton, nextPlayerButton, startRoundButton, nextRoundButton;
+    private JPanel buttonPanel;
 
     private PrintStream standardOut;
 
@@ -81,37 +81,37 @@ public class GameGui extends JPanel {
         shipListPanel.add(shipListLabel);
         shipListPanel.setLayout(new BoxLayout(shipListPanel, BoxLayout.Y_AXIS));
 
-        startGameButton = new JButton("Spiel-Starten");
+        startGameButton = new JButton("Start-Game");
         startGameButton.setActionCommand("Game-StartGame");
         startGameButton.setFont(new Font("Serif", 10, 13));
         startGameButton.setBackground(Color.white);
         startGameButton.setForeground(Color.black);
-        nextPlayerButton = new JButton("Nächster-Spieler");
-        nextPlayerButton.setActionCommand("Game-NextPlayerPlaceShip");
+        nextRoundButton = new JButton("Next-Round");
+        nextRoundButton.setActionCommand("Game-StartGame");
+        nextRoundButton.setFont(new Font("Serif", 10, 13));
+        nextRoundButton.setBackground(Color.white);
+        nextRoundButton.setForeground(Color.black);
+        nextRoundButton.setVisible(false);
+        nextPlayerButton = new JButton("NextPlayer");
+        nextPlayerButton.setActionCommand("Game-NextPlayer");
         nextPlayerButton.setFont(new Font("Serif", 10, 13));
         nextPlayerButton.setBackground(Color.white);
         nextPlayerButton.setForeground(Color.black);
         nextPlayerButton.setVisible(false);
-        startRoundButton = new JButton("Runde-Starten");
+        startRoundButton = new JButton("Start-Round");
         startRoundButton.setActionCommand("Game-StartRound");
         startRoundButton.setFont(new Font("Serif", 10, 13));
         startRoundButton.setBackground(Color.white);
         startRoundButton.setForeground(Color.black);
         startRoundButton.setVisible(false);
-        menuButton = new JButton("Hauptmenü");
+        menuButton = new JButton("Main-Menu");
         menuButton.setActionCommand("Game-MainMenu");
         menuButton.setFont(new Font("Serif", 10, 13));
         menuButton.setBackground(Color.white);
         menuButton.setForeground(Color.black);
-        saveGameButton = new JButton("Spiel Speichern");
-        saveGameButton.setActionCommand("Game-SaveGame");
-        saveGameButton.setFont(new Font("Serif", 10, 13));
-        saveGameButton.setBackground(Color.white);
-        saveGameButton.setForeground(Color.black);
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         buttonPanel.add(menuButton);
-        buttonPanel.add(saveGameButton);
 
         emptyMatrix = new FieldGui[gameSettings.getPlayfieldSize() + 1][gameSettings.getPlayfieldSize() + 1];
         emptyMatrixPanel = new JPanel();
@@ -142,6 +142,7 @@ public class GameGui extends JPanel {
                                 .addComponent(startGameButton)
                                 .addComponent(nextPlayerButton)
                                 .addComponent(startRoundButton)
+                                .addComponent(nextRoundButton)
                         )
                         .addGroup(gameGuiLayout.createSequentialGroup()
                                 .addComponent(textOutputPanel, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -158,6 +159,7 @@ public class GameGui extends JPanel {
                         .addComponent(startGameButton)
                         .addComponent(nextPlayerButton)
                         .addComponent(startRoundButton)
+                        .addComponent(nextRoundButton)
                 )
                 .addGroup(gameGuiLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addComponent(textOutputPanel, 0, GroupLayout.DEFAULT_SIZE, 350)
@@ -208,11 +210,11 @@ public class GameGui extends JPanel {
         Dimension maxButtonSize;
         for (int i = 0; i < shipListButtons.length; i++) {
             shipListButtons[i] = new JButton(playerList.get(playerNumber).getShips().get(i).getName() + "(S. " + playerList.get(playerNumber).getShips().get(i).getSize() + ")");
-            maxButtonSize = shipListButtons[0].getMaximumSize();
+//            maxButtonSize = shipListButtons[0].getMaximumSize();
             shipListButtons[i].setActionCommand(Integer.toString(playerList.get(playerNumber).getShips().get(i).getNumber()));
             shipListButtons[i].setEnabled(false);
             shipListButtons[i].setSelected(false);
-            shipListButtons[i].setMaximumSize(maxButtonSize);
+//            shipListButtons[i].setMaximumSize(maxButtonSize);
             shipListPanel.add(shipListButtons[i]);
         }
     }
@@ -251,7 +253,7 @@ public class GameGui extends JPanel {
             playerButton[player].setEnabled(true);
         }
     }
-    
+
     public boolean checkShipButtonSelection() {
         for (int i = 0; i < shipListButtons.length; i++) {
             if (shipListButtons[i].isSelected()) {
@@ -270,14 +272,14 @@ public class GameGui extends JPanel {
         }
 
     }
+
     public void changeShipButtonColor(int shipNumber) {
-        
-        
+
         for (int i = 0; i < shipListButtons.length; i++) {
-                shipListButtons[i].setBackground(new JButton().getBackground());
-                shipListButtons[i].setSelected(false);
-                shipListButtons[shipNumber].setBackground(Color.red);
-                shipListButtons[shipNumber].setSelected(true);
+            shipListButtons[i].setBackground(new JButton().getBackground());
+            shipListButtons[i].setSelected(false);
+            shipListButtons[shipNumber].setBackground(Color.red);
+            shipListButtons[shipNumber].setSelected(true);
         }
 
     }
@@ -298,23 +300,29 @@ public class GameGui extends JPanel {
 
     public boolean activateShipButtons(ArrayList<Player> playerlist, int player) {
 
+        int counter = 0;
+
         for (int i = 0; i < shipListButtons.length; i++) {
             if (playerlist.get(player).getShips().get(i).getIsSunk() == false
                     && playerlist.get(player).getShips().get(i).getCurrentReloadTime() == 0) {
                 shipListButtons[i].setEnabled(true);
-
-            } else {
-                return false;
+                counter++;
             }
+
+        }
+        if (counter == 0) {
+            return false;
         }
         return true;
     }
 
     public void deActivatePlayerAndShipButtons() {
         for (int i = 0; i < shipListButtons.length; i++) {
+            shipListButtons[i].setBackground(new JButton().getBackground());
             shipListButtons[i].setEnabled(false);
         }
         for (int i = 0; i < playerButton.length; i++) {
+            playerButton[i].setBackground(new JButton().getBackground());
             playerButton[i].setEnabled(false);
 
         }
@@ -326,6 +334,18 @@ public class GameGui extends JPanel {
 
     public void deActivateStartRoundButton() {
         this.startRoundButton.setVisible(false);
+    }
+
+    public void activateNextRoundButton() {
+        this.nextRoundButton.setVisible(true);
+    }
+
+    public void deActivateNextRoundButton() {
+        this.nextRoundButton.setVisible(false);
+    }
+
+    public void setNextRoundButtonListener(ActionListener l) {
+        this.nextRoundButton.addActionListener(l);
     }
 
     public void activateNextPlayerButton() {
@@ -346,7 +366,6 @@ public class GameGui extends JPanel {
 
     public void setGameButtonListener(ActionListener l) {
         this.menuButton.addActionListener(l);
-        this.saveGameButton.addActionListener(l);
     }
 
     public void setStartGameButtonListener(ActionListener l) {

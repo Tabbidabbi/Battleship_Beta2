@@ -23,8 +23,8 @@ public class MainMenuGui extends JPanel {
     JPanel menuButtonPanel;
     JPanel headerPanel;
     public JPanel menuPanel;
-    JButton[] menuButtons = {new JButton("Neues Spiel"), new JButton("Spiel Laden"),
-        new JButton("Anleitung"), new JButton("Spiel Verlassen")};
+    JButton[] menuButtons = {new JButton("New Game"), new JButton("Network"),
+        new JButton("HowTo"), new JButton("Exit Game")};
     
     public CardLayout cardLayout = new CardLayout();
 
@@ -33,7 +33,7 @@ public class MainMenuGui extends JPanel {
 
     public MainMenuGui() {
         
-        headerLabel = new JLabel("Schiffeversenken Alpha_5");
+        headerLabel = new JLabel("Battleship");
         headerLabel.setFont(new Font("Serif", 25, 25));
         headerPanel = new JPanel();
         headerPanel.add(headerLabel);
@@ -51,7 +51,7 @@ public class MainMenuGui extends JPanel {
             menuButtons[i].setFont(new Font("Serif", 10, 13));
         }
         menuButtons[0].setActionCommand("Menu-NewGame");
-        menuButtons[1].setActionCommand("Menu-LoadGame");
+        menuButtons[1].setActionCommand("Menu-Network");
         menuButtons[2].setActionCommand("Menu-Instructions");
         menuButtons[3].setActionCommand("Menu-ExitGame");
 

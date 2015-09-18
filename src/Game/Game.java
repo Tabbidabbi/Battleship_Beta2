@@ -84,6 +84,7 @@ public class Game implements Serializable, ActionListener {
         addStartGameListener();
         addNextPlayerButtonListener();
         addStartRoundListener();
+        addNextRoundListener();
         gameGui.addPlayerButtonsToGameGui(playerList);
         addPlayerButtonsActionListener();
         gameGui.addShipButtonsToGameGui(player, playerList);
@@ -234,7 +235,7 @@ public class Game implements Serializable, ActionListener {
                 playerList.get(player).getOpponentViewGui().getOpponentViewMatrix()[Integer.parseInt(placeShipCoordinateSplitted[0])][Integer.parseInt(placeShipCoordinateSplitted[1]) + i].setIsWater(true);
                 playerList.get(player).getOpponentViewGui().getOpponentViewMatrix()[Integer.parseInt(placeShipCoordinateSplitted[0])][Integer.parseInt(placeShipCoordinateSplitted[1]) + i].setHasShip(true);
                 playerList.get(player).getOpponentViewGui().getOpponentViewMatrix()[Integer.parseInt(placeShipCoordinateSplitted[0])][Integer.parseInt(placeShipCoordinateSplitted[1]) + i].setShipNumber(playerList.get(player).getShips().get(shipsPlaced).getNumber());
-                playerList.get(player).getOpponentViewGui().getOpponentViewMatrix()[Integer.parseInt(placeShipCoordinateSplitted[0])][Integer.parseInt(placeShipCoordinateSplitted[1]) + i].setText(playerList.get(player).getShips().get(shipsPlaced).getSign());
+//                playerList.get(player).getOpponentViewGui().getOpponentViewMatrix()[Integer.parseInt(placeShipCoordinateSplitted[0])][Integer.parseInt(placeShipCoordinateSplitted[1]) + i].setText(playerList.get(player).getShips().get(shipsPlaced).getSign());
 
             }
 
@@ -267,7 +268,7 @@ public class Game implements Serializable, ActionListener {
                 playerList.get(player).getOpponentViewGui().getOpponentViewMatrix()[Integer.parseInt(placeShipCoordinateSplitted[0]) + i][Integer.parseInt(placeShipCoordinateSplitted[1])].setIsWater(true);
                 playerList.get(player).getOpponentViewGui().getOpponentViewMatrix()[Integer.parseInt(placeShipCoordinateSplitted[0]) + i][Integer.parseInt(placeShipCoordinateSplitted[1])].setHasShip(true);
                 playerList.get(player).getOpponentViewGui().getOpponentViewMatrix()[Integer.parseInt(placeShipCoordinateSplitted[0]) + i][Integer.parseInt(placeShipCoordinateSplitted[1])].setShipNumber(playerList.get(player).getShips().get(shipsPlaced).getNumber());
-                playerList.get(player).getOpponentViewGui().getOpponentViewMatrix()[Integer.parseInt(placeShipCoordinateSplitted[0]) + i][Integer.parseInt(placeShipCoordinateSplitted[1])].setText(playerList.get(player).getShips().get(shipsPlaced).getSign());
+//                playerList.get(player).getOpponentViewGui().getOpponentViewMatrix()[Integer.parseInt(placeShipCoordinateSplitted[0]) + i][Integer.parseInt(placeShipCoordinateSplitted[1])].setText(playerList.get(player).getShips().get(shipsPlaced).getSign());
 
             }
 
@@ -419,21 +420,20 @@ public class Game implements Serializable, ActionListener {
         return true;
     }
 
-
-	private void setDownReloadTime(ArrayList<Player> playerList,int player) {
-		for (int shipNumber = 0; shipNumber < playerList.get(player).getShips().size(); shipNumber++) {
-		    if (playerList.get(player).getShips().get(shipNumber).getCurrentReloadTime() >= 1) {
-		        playerList.get(player).getShips().get(shipNumber).setDownReloadTime();
-		    }
-		}
-	}
+    private void setDownReloadTime(ArrayList<Player> playerList, int player) {
+        for (int shipNumber = 0; shipNumber < playerList.get(player).getShips().size(); shipNumber++) {
+            if (playerList.get(player).getShips().get(shipNumber).getCurrentReloadTime() >= 1) {
+                playerList.get(player).getShips().get(shipNumber).setDownReloadTime();
+            }
+        }
+    }
 
     private void aiPlayerTurn(ArrayList<Player> playerList, int playerCounter) {
         //1. Auswahl des Schiffes
         IO.println(playerList.get(playerCounter).getName() + " ist am Zug!");
         //Vorher casten
         int aiShipIndex = ((AiPlayer) playerList.get(playerCounter)).getRandomShip(playerList, playerCounter);
-        IO.println("Schiff: " + aiShipIndex + playerList.get(playerCounter).getShips().get(aiShipIndex).getName() );
+        IO.println("Schiff: " + aiShipIndex + playerList.get(playerCounter).getShips().get(aiShipIndex).getName());
         int shootRange = playerList.get(playerCounter).getShips().get(aiShipIndex).getShootRange();
         boolean orientation = false;
         if (shootRange > 1) {
@@ -447,18 +447,18 @@ public class Game implements Serializable, ActionListener {
         } else {
             aiOpponentIndex = ((AiPlayer) playerList.get(playerCounter)).getAiLastHitOpponentIndex();
         }
-		IO.println("Gegner: " + playerList.get(aiOpponentIndex).getName());
+        IO.println("Gegner: " + playerList.get(aiOpponentIndex).getName());
         //playerList.get(aiOpponentIndex).getOpponentField().printOpponentField();
         // Koordinate wird gewählt
 
         // 3. Koordinate auf dem Spielfeld auswählen.
         String aiCoordinateToShoot = ((AiPlayer) playerList.get(playerCounter)).getAiChooseCoordinate(playerList, aiOpponentIndex, ((AiPlayer) playerList.get(playerCounter)).getAiLastHitCoordinate());
-		//String aiCoordinateToShoot = Helper.aiChooseCoordinate(playerList, playerCounter, playerList.get(playerCounter).getAiLastHitCoordinate());
-        IO.println("Koordinate: " + aiCoordinateToShoot );
-        
+        //String aiCoordinateToShoot = Helper.aiChooseCoordinate(playerList, playerCounter, playerList.get(playerCounter).getAiLastHitCoordinate());
+        IO.println("Koordinate: " + aiCoordinateToShoot);
+
         // 4.Schiessen
         String lastHitCoordinate = ((AiPlayer) playerList.get(playerCounter)).aiShootOnPlayField(playerList, aiOpponentIndex, shootRange, orientation, aiCoordinateToShoot);
-                            gameGui.showOpponentView(aiOpponentIndex);
+        gameGui.showOpponentView(aiOpponentIndex);
 
         ((AiPlayer) playerList.get(playerCounter)).setAiLastHitCoordinate(lastHitCoordinate);
 
@@ -505,7 +505,11 @@ public class Game implements Serializable, ActionListener {
 //            IO.println(playerList.get(opponent).getName() + " hat verloren!");
 //        }
 //    }
-
+    
+    /**
+     * Dem Spielfeld "PlayerView wird ein Actionlistener hinzugefügt.
+     * Wenn das Feld aktiviert wurde, kann man per Maus-Klick ein Event auslösen, welches die verfügbaren Schiffe platziert.
+     */
     private void addPlayerViewMatrixListener() {
 
         playerList.get(player).getPlayerViewGui().setPlayerViewButtonListener(new ActionListener() {
@@ -524,7 +528,7 @@ public class Game implements Serializable, ActionListener {
                         nextShipDialog();
                     } else {
                         shipsPlaced = 0;
-                        showNextPlayerButton();
+                        showNextPlayerOrRoundButton();
                     }
 
                 }
@@ -533,27 +537,45 @@ public class Game implements Serializable, ActionListener {
 //        }
     }
 
+    /**
+     * Dem Spielfeld "OpponentView" wird ein Actionlistener hinzugefügt.
+     * Auf dieses Spielfeld kann geschossen werden.
+     * Die Koordinate wird gespeichert und an die Schießen Methode weitergegeben.
+
+     */
     private void addOpponentViewMatrixListener() {
         for (Player pl : playerList) {
             pl.getOpponentViewGui().setOpponentViewButtonListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                        if (gameGui.checkShipButtonSelection()) {
-                            int shootRange = playerList.get(player).getShips().get(selectedShip).getShootRange();
-                            if (shootRange > 1) {
+                    if (gameGui.checkShipButtonSelection()) {
+                        int shootRange = playerList.get(player).getShips().get(selectedShip).getShootRange();
+                        if (shootRange > 1) {
                             HelperOrientationDialog shootOrientationDialog = new HelperOrientationDialog("Please choose the shoot alignment: ", "shoot");
                             shootOrientation = shootOrientationDialog.getOrientation();
-                            }
-                            String shootCoordinate = e.getActionCommand();
-                            String[] shootCoordinateSplitted = shootCoordinate.split("\\#");
-                            playerList.get(player).humanShootOnPlayfield(playerList, selectedPlayer, shootRange,shootOrientation, shootCoordinateSplitted);
+                        }
+                        String shootCoordinate = e.getActionCommand();
+                        String[] shootCoordinateSplitted = shootCoordinate.split("\\#");
+                        playerList.get(player).humanShootOnPlayfield(playerList, selectedPlayer, shootRange, shootOrientation, shootCoordinateSplitted);
+                        playerList.get(player).getShips().get(selectedShip).setCurrentReloadTime();
+                        playerList.get(selectedPlayer).getOpponentViewGui().disableOpponentView();
+                        if (Helper.checkIfShipAvailable(playerList, selectedPlayer) == false) {
+                            playerList.get(selectedPlayer).setLost(true);
+                            System.out.println(playerList.get(selectedPlayer).getName() + " lost!");
+                        } else {
+                            showNextPlayerOrRoundButton();
+
                         }
                     }
+                }
             });
         }
     }
-
+/**
+ * Den Spieler Buttons wird ein Actionlistener hinzugefügt.
+ * Wird ein Button betätigt, wird der Button makiert und ein Event wird ausgelöst.
+ */
     private void addPlayerButtonsActionListener() {
         gameGui.setPlayerButtonsActionListener(new ActionListener() {
 
@@ -566,8 +588,10 @@ public class Game implements Serializable, ActionListener {
                     gameGui.changePlayerButtonColor(selectedPlayer);
                     if (gameGui.activateShipButtons(playerList, player)) {
                         System.out.println("Choose the ship you want to shoot with: ");
+                        playerList.get(selectedPlayer).getOpponentViewGui().enableOpponentView();
                     } else {
-                        System.out.println("next player");
+                        System.out.println("All ships have a reload time.");
+                        showNextPlayerOrRoundButton();
                     }
                 }
             }
@@ -585,13 +609,12 @@ public class Game implements Serializable, ActionListener {
                     gameGui.changeShipButtonColor(selectedShip);
                     System.out.println("\n" + "Click on the playfield where you want to shoot: ");
 
-
                 }
             }
         });
     }
 
-    private void showNextPlayerButton() {
+    private void showNextPlayerOrRoundButton() {
         if (gameState == 0) {
             if (player < playerList.size() - 1) {
                 System.out.println("All ships placed!" + "\n");
@@ -607,8 +630,20 @@ public class Game implements Serializable, ActionListener {
                 playerList.get(player).getPlayerViewGui().disablePlayfield();
                 gameGui.activateStartRoundButton();
                 player = 0;
-                gameState = 1;
 
+            }
+        }
+        if (gameState == 1) {
+            if (player == playerList.size() - 1) {
+                player = 0;
+                System.out.println("Round " + roundNumber + " finished." + "\n");
+                gameGui.activateNextRoundButton();
+
+
+            } else {
+                player++;
+                gameGui.deActivatePlayerAndShipButtons();
+                gameGui.activateNextPlayerButton();
             }
         }
     }
@@ -618,7 +653,29 @@ public class Game implements Serializable, ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                gameState = 1;
                 gameGui.deActivateStartRoundButton();
+                if (playerList.get(player) instanceof AiPlayer) {
+                    gameGui.showPlayerPlayField(player);
+                    aiPlayerTurn(playerList, player);
+                    gameGui.activateNextPlayerButton();
+                } else {
+                    gameGui.showPlayerPlayField(player);
+                    gameGui.activateEnemyPlayerButton(player);
+                    System.out.println(playerList.get(player).getName() + ", please choose the player you want to attack: ");
+                }
+            }
+        });
+    }
+    
+    private void addNextRoundListener() {
+        gameGui.setNextRoundButtonListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameGui.deActivateNextRoundButton();
+                gameGui.deActivatePlayerAndShipButtons();
+                
                 if (playerList.get(player) instanceof AiPlayer) {
                     gameGui.showPlayerPlayField(player);
                     aiPlayerTurn(playerList, player);
@@ -636,7 +693,7 @@ public class Game implements Serializable, ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getActionCommand().equals("Game-NextPlayerPlaceShip")) {
+                if (gameState == 0) {
                     if (player < playerList.size() - 1) {
                         gameGui.deActivateNextPlayerButton();
                         player++;
@@ -650,7 +707,7 @@ public class Game implements Serializable, ActionListener {
                         if (playerList.get(player) instanceof AiPlayer) {
                             placeAiShip(player, shipsPlaced);
                             gameGui.activatePlayerButton(player);
-                            showNextPlayerButton();
+                            showNextPlayerOrRoundButton();
                         } else {
                             interactWithPlayer(playerList);
                             gameGui.activatePlayerButton(player);
@@ -659,6 +716,17 @@ public class Game implements Serializable, ActionListener {
 
                         }
 
+                    }
+                }
+                if (gameState == 1) {
+                    gameGui.deActivateNextPlayerButton();
+                    if (playerList.get(player) instanceof AiPlayer) {
+                        gameGui.showPlayerPlayField(player);
+                        aiPlayerTurn(playerList, player);
+                    } else {
+                        gameGui.showPlayerPlayField(player);
+                        gameGui.activateEnemyPlayerButton(player);
+                        System.out.println(playerList.get(player).getName() + ", please choose the player you want to attack: ");
                     }
 
                 }
@@ -682,7 +750,7 @@ public class Game implements Serializable, ActionListener {
                     placeAiShip(player, shipsPlaced);
                     gameGui.activatePlayerButton(player);
                     gameGui.activateNextPlayerButton();
-                    showNextPlayerButton();
+                    showNextPlayerOrRoundButton();
 
                 } else {
                     interactWithPlayer(playerList);
