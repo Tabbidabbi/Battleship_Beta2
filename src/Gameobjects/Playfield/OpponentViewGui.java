@@ -64,6 +64,21 @@ public class OpponentViewGui extends JPanel {
         setVisible(true);
 
     }
+    
+    public void disableOpponentView() {
+        for (int i = 0; i < opponentViewMatrix.length; i++) {
+            for (int j = 0; j < opponentViewMatrix[i].length; j++) {
+                opponentViewMatrix[i][j].setEnabled(false);
+            }
+        }
+    }
+    public void enableOpponentView() {
+        for (int i = 0; i < opponentViewMatrix.length; i++) {
+            for (int j = 0; j < opponentViewMatrix[i].length; j++) {
+                opponentViewMatrix[i][j].setEnabled(true);
+            }
+        }
+    }
 
     public FieldGui getPlayfieldButton() {
         return playfieldButton;

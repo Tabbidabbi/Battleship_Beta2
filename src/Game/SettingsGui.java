@@ -36,16 +36,16 @@ public class SettingsGui extends JPanel {
     String[] comboBoxItems = {"2", "3", "4", "5", "6"};
     JLabel playerComboBoxLabel;
     JPanel playerComboBoxPanel;
-    JLabel[] ammountPlayersLabel = {new JLabel("Spieler 1:"), new JLabel("Spieler 2:"), new JLabel("Spieler 3:"),
-        new JLabel("Spieler 4:"), new JLabel("Spieler 5:"), new JLabel("Spieler 6:")};
+    JLabel[] ammountPlayersLabel = {new JLabel("Player 1:"), new JLabel("Player 2:"), new JLabel("Player 3:"),
+        new JLabel("Player 4:"), new JLabel("Player 5:"), new JLabel("Player 6:")};
     JTextField[] playerTextFields = new JTextField[6];
     JCheckBox[] kiCheckboxes = new JCheckBox[6];
     JPanel[] singlePlayerPanel = new JPanel[6];
     JPanel playerPanel;
     JSpinner[] setAmmountOfShipsSpinner;
-    JLabel[] shipLabel = {new JLabel("Anzahl der Zerstörer:"),
-        new JLabel("Anzahl der Fregatten:"), new JLabel("Anzahl der Korvetten:"),
-        new JLabel("Anzahl der U-Boote:")};
+    JLabel[] shipLabel = {new JLabel("Ammount of Destroyers:"),
+        new JLabel("Ammount of Frigates:"), new JLabel("Ammount of Corvettes:"),
+        new JLabel("Ammount of Submarines:")};
     JPanel[] singleShipPanel = new JPanel[4];
     JPanel shipFieldsPanel;
     JLabel playFieldSizeLabel;
@@ -63,14 +63,14 @@ public class SettingsGui extends JPanel {
         setLayout(new GridLayout());
         this.amountOfAllShips = amountOfDestroyer + amountOfFrigate + amountOfCorvette + amountOfSubmarine;
 
-        headerLabel = new JLabel("Einstellungen");
+        headerLabel = new JLabel("Settings");
         headerLabel.setFont(new Font("Serif", 25, 25));
         headerPanel = new JPanel();
         headerPanel.add(headerLabel);
         headerPanel.setOpaque(false);
 
         playerComboBoxPanel = new JPanel();
-        playerComboBoxLabel = new JLabel("Anzahl der Spieler");
+        playerComboBoxLabel = new JLabel("Amount of Player");
         amountPlayerComboBox = new JComboBox(comboBoxItems);
         amountPlayerComboBox.addItemListener(new ComboBoxHandler());
         amountPlayerComboBox.setSelectedItem(comboBoxItems[0]);
@@ -81,9 +81,9 @@ public class SettingsGui extends JPanel {
         playerPanel.setPreferredSize(new Dimension(250, 150));
         playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.Y_AXIS));
         for (int i = 0; i < playerTextFields.length; i++) {
-            playerTextFields[i] = new JTextField("Spieler" + (i + 1), 10);
+            playerTextFields[i] = new JTextField("Player" + (i + 1), 10);
             singlePlayerPanel[i] = new JPanel();
-            kiCheckboxes[i] = new JCheckBox("KI");
+            kiCheckboxes[i] = new JCheckBox("AI");
             singlePlayerPanel[i].add(ammountPlayersLabel[i]);
             singlePlayerPanel[i].add(playerTextFields[i]);
             singlePlayerPanel[i].add(kiCheckboxes[i]);
@@ -110,7 +110,7 @@ public class SettingsGui extends JPanel {
         setAmmountOfShipsSpinner[2].setModel(new SpinnerNumberModel(0, 0, 3, 1));
         setAmmountOfShipsSpinner[3].setModel(new SpinnerNumberModel(0, 0, 4, 1));
 
-        playFieldSizeLabel = new JLabel("Spielfeldgröße:");
+        playFieldSizeLabel = new JLabel("Playfield Size:");
         playFieldSizeSpinner = new JSpinner();
 //        playFieldSizeSpinner.addChangeListener(new PlayfieldSizeHandler());
         playFieldSizeSpinner.setModel(new SpinnerNumberModel(8, 6, 18, 1));
@@ -127,12 +127,12 @@ public class SettingsGui extends JPanel {
         categoriePanel.add(playerPanel);
         categoriePanel.add(shipFieldsPanel);
 
-        backButton = new JButton("Hauptmenü");
+        backButton = new JButton("Main-Menu");
         backButton.setActionCommand("Settings-MainMenu");
         backButton.setFont(new Font("Serif", 10, 13));
         backButton.setBackground(Color.white);
         backButton.setForeground(Color.black);
-        SaveSettingsButton = new JButton("Speichern");
+        SaveSettingsButton = new JButton("Save");
         SaveSettingsButton.setActionCommand("Settings-SaveSettings");
 
         SaveSettingsButton.setFont(new Font("Serif", 10, 13));
