@@ -31,11 +31,13 @@ public class InstructionsGui extends JPanel{
         header = new JLabel("Anleitung");
         header.setFont(new Font("Serif",0, 25));
         
+        //TextArea wird initialiert
         instructionsTextArea = new JTextArea(this.text);
         instructionsTextArea.setForeground(Color.red);
         instructionsTextArea.setEditable(false);
         instructionsTextArea.setLineWrap(true);
         
+        //Zurück-Button wird initialisiert
         backButton = new JButton("Hauptmenü");
         backButton.setActionCommand("Instructions-MainMenuButton");
         
@@ -49,7 +51,6 @@ public class InstructionsGui extends JPanel{
         instructionsPanel.add(Box.createRigidArea(new Dimension(0, 80)));
         
         add(instructionsPanel);
-        
         setVisible(true);
     }
     
@@ -57,6 +58,7 @@ public class InstructionsGui extends JPanel{
         this.backButton.addActionListener(l);
     }
     
+    //Regeln
     public void setText(){
     	this.text = "Schiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken Regeln"
     			+ "Schiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken RegelnSchiffe versenken Regeln"

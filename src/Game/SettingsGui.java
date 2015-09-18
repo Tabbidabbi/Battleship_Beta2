@@ -30,35 +30,38 @@ public class SettingsGui extends JPanel {
     private int amountOfAllShips;
     private int playfieldSize;
 
-    JLabel headerLabel;
-    JPanel headerPanel;
-    JComboBox amountPlayerComboBox;
-    String[] comboBoxItems = {"2", "3", "4", "5", "6"};
-    JLabel playerComboBoxLabel;
-    JPanel playerComboBoxPanel;
-    JLabel[] ammountPlayersLabel = {new JLabel("Player 1:"), new JLabel("Player 2:"), new JLabel("Player 3:"),
+    private JLabel headerLabel;
+    private JPanel headerPanel;
+    private JComboBox amountPlayerComboBox;
+    private String[] comboBoxItems = {"2", "3", "4", "5", "6"};
+    private JLabel playerComboBoxLabel;
+    private JPanel playerComboBoxPanel;
+    private JLabel[] ammountPlayersLabel = {new JLabel("Player 1:"), new JLabel("Player 2:"), new JLabel("Player 3:"),
         new JLabel("Player 4:"), new JLabel("Player 5:"), new JLabel("Player 6:")};
-    JTextField[] playerTextFields = new JTextField[6];
-    JCheckBox[] kiCheckboxes = new JCheckBox[6];
-    JPanel[] singlePlayerPanel = new JPanel[6];
-    JPanel playerPanel;
-    JSpinner[] setAmmountOfShipsSpinner;
-    JLabel[] shipLabel = {new JLabel("Ammount of Destroyers:"),
+    private JTextField[] playerTextFields = new JTextField[6];
+    private JCheckBox[] kiCheckboxes = new JCheckBox[6];
+    private JPanel[] singlePlayerPanel = new JPanel[6];
+    private JPanel playerPanel;
+    private JSpinner[] setAmmountOfShipsSpinner;
+    private JLabel[] shipLabel = {new JLabel("Ammount of Destroyers:"),
         new JLabel("Ammount of Frigates:"), new JLabel("Ammount of Corvettes:"),
         new JLabel("Ammount of Submarines:")};
-    JPanel[] singleShipPanel = new JPanel[4];
-    JPanel shipFieldsPanel;
-    JLabel playFieldSizeLabel;
-    JSpinner playFieldSizeSpinner;
-    JPanel playFieldSizePanel;
-    JPanel categoriePanel;
-    JPanel backPanel;
-    JButton backButton, resetSettingsButton, SaveSettingsButton;
-    JPanel buttonPanel;
-    MainMenuGui mainMenuGUI;
-    Settings gameSettings;
-    
+    private JPanel[] singleShipPanel = new JPanel[4];
+    private JPanel shipFieldsPanel;
+    private JLabel playFieldSizeLabel;
+    private JSpinner playFieldSizeSpinner;
+    private JPanel playFieldSizePanel;
+    private JPanel categoriePanel;
+    private JPanel backPanel;
+    private JButton backButton, resetSettingsButton, SaveSettingsButton;
+    private JPanel buttonPanel;
+    private MainMenuGui mainMenuGUI;
+    private Settings gameSettings;
 
+    /**
+     * Konstruktor
+     * Erstellung der SettingsGui
+     */
     public SettingsGui() {
         setLayout(new GridLayout());
         this.amountOfAllShips = amountOfDestroyer + amountOfFrigate + amountOfCorvette + amountOfSubmarine;
@@ -158,6 +161,7 @@ public class SettingsGui extends JPanel {
 
     }
 
+    
     public String[] getPlayerNames() {
         return playerNames;
     }
@@ -336,7 +340,6 @@ public class SettingsGui extends JPanel {
         amountOfFrigate = (int)setAmmountOfShipsSpinner[1].getValue();
         amountOfCorvette = (int)setAmmountOfShipsSpinner[2].getValue();
         amountOfSubmarine = (int)setAmmountOfShipsSpinner[3].getValue();
-        
         playfieldSize = (int)playFieldSizeSpinner.getValue();
     }
 }
