@@ -5,13 +5,8 @@
  */
 package Main;
 
-import Game.GameGui;
-import Game.InstructionsGui;
-import Game.SettingsGui;
-import Gameobjects.Playfield.PlayerViewGui;
 import Multimedia.BackgroundImagePanel;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -20,26 +15,22 @@ import javax.swing.*;
  */
 public class BattleshipGui extends JFrame {
 
-    BackgroundImagePanel backgroundImagePanel;
-
-    MenuHandler menuHandler;
-
+    private BackgroundImagePanel backgroundImagePanel;
+    private MenuHandler menuHandler;
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(getGraphicsConfiguration());
-    int taskBarSize = scnMax.bottom;
+    private Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(getGraphicsConfiguration());
+    private int taskBarSize = scnMax.bottom;
 
+    /**
+     * Konstruktor
+     */
     public BattleshipGui() {
         setTitle("Battleship");
         setSize(screenSize.width - getWidth(), screenSize.height - taskBarSize - getHeight());
         setContentPane(backgroundImagePanel = new BackgroundImagePanel("Images\\background.jpg"));
-
         menuHandler = new MenuHandler();
-
         add(menuHandler);
-
         setVisible(true);
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 }

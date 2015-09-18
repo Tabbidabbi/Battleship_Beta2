@@ -99,8 +99,6 @@ public  abstract class Player implements Serializable {
 		this.ships = ships;
 	}
 	
-
-
 	/**
 	 * Gibt SpielerGUI zurück
 	 *
@@ -205,7 +203,6 @@ public  abstract class Player implements Serializable {
 		}
 	}
 	
-
 	/**
 	 * 
 	 * @param playerList
@@ -266,9 +263,6 @@ public  abstract class Player implements Serializable {
 		int shipIndex;
 		int[] tempShipArray;
 		IO.println("Mit welchem Schiff willst du schiessen?");
-		// printListOfReloadingShips(player, playerN);
-		// printListOfSunkShips(player, playerN);
-		// IO.println("Schiffe, die zur Verfuegung stehen");
 		tempShipArray = listOfAvalableShips(playerList, playerindex);
 		IO.println("Gib die Nummer des Schiffs ein: ");
 		do {
@@ -339,6 +333,4 @@ public  abstract class Player implements Serializable {
 				+ playerList.get(playerindex).getShips().get(opponentIndex).getName() + " ausgewaehlt!");
 		return opponentIndex;
 	}
-
-
 }
