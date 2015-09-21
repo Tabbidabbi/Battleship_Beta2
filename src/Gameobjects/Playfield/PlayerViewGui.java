@@ -133,9 +133,9 @@ public class PlayerViewGui extends JPanel {
         if (orientation == true) {
             for (int i = 0; i < shootRange; i++) {
                 try {
-                    if (this.playerViewMatrix[yCoordinate][(xCoordinate) + i].setIsShot() != 99) {
+                   // if (this.playerViewMatrix[yCoordinate][(xCoordinate) + i].setIsShot() != 99) {
                         hitShips.add(this.playerViewMatrix[yCoordinate] [(xCoordinate) + i].setIsShot());
-                    }
+                   // }
                 } catch (ArrayIndexOutOfBoundsException e) {
 //                    e.printStackTrace();
                 }
@@ -143,9 +143,9 @@ public class PlayerViewGui extends JPanel {
         } else {
             for (int i = 0; i < shootRange; i++) {
                 try {
-                    if (this.playerViewMatrix[(yCoordinate) + i][(xCoordinate)].setIsShot() != 99) {
+                   // if (this.playerViewMatrix[(yCoordinate) + i][(xCoordinate)].setIsShot() != 99) {
                         hitShips.add(this.playerViewMatrix[(yCoordinate) + i][(xCoordinate)].setIsShot());
-                    }
+                   // }
                 } catch (ArrayIndexOutOfBoundsException e) {
 //                    e.printStackTrace();
                 }
