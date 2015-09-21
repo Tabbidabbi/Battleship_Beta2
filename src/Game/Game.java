@@ -607,10 +607,8 @@ public class Game implements Serializable, ActionListener {
                 gameGui.deActivatePlayerAndShipButtons();
                 playerList.get(player).getPlayerViewGui().disablePlayfield();
                 gameGui.activateNextPlayerButton();
-                gameGui.showEmptyMatrix();
             } else {
                 System.out.println("Click on start round to start the first round." + "\n");
-                gameGui.showEmptyMatrix();
                 gameGui.deActivatePlayerAndShipButtons();
                 playerList.get(player).getPlayerViewGui().disablePlayfield();
                 gameGui.activateStartRoundButton();
