@@ -428,12 +428,17 @@ public class Game implements Serializable, ActionListener {
         }
     }
 
+    /**
+     * Schiessrunde der KI
+     * @param playerList
+     * @param playerCounter
+     */
     private void aiPlayerTurn(ArrayList<Player> playerList, int playerCounter) {
         //1. Auswahl des Schiffes
         IO.println(playerList.get(playerCounter).getName() + " ist am Zug!");
         //Vorher casten
         int aiShipIndex = ((AiPlayer) playerList.get(playerCounter)).getRandomShip(playerList, playerCounter);
-        IO.println("Schiff: " + aiShipIndex + playerList.get(playerCounter).getShips().get(aiShipIndex).getName());
+        //IO.println("Schiff: " + aiShipIndex + playerList.get(playerCounter).getShips().get(aiShipIndex).getName());
         int shootRange = playerList.get(playerCounter).getShips().get(aiShipIndex).getShootRange();
         boolean orientation = false;
         if (shootRange > 1) {
@@ -447,14 +452,14 @@ public class Game implements Serializable, ActionListener {
         } else {
             aiOpponentIndex = ((AiPlayer) playerList.get(playerCounter)).getAiLastHitOpponentIndex();
         }
-        IO.println("Gegner: " + playerList.get(aiOpponentIndex).getName());
+        //IO.println("Gegner: " + playerList.get(aiOpponentIndex).getName());
         //playerList.get(aiOpponentIndex).getOpponentField().printOpponentField();
         // Koordinate wird gewählt
 
         // 3. Koordinate auf dem Spielfeld auswählen.
         String aiCoordinateToShoot = ((AiPlayer) playerList.get(playerCounter)).getAiChooseCoordinate(playerList, aiOpponentIndex, ((AiPlayer) playerList.get(playerCounter)).getAiLastHitCoordinate());
         //String aiCoordinateToShoot = Helper.aiChooseCoordinate(playerList, playerCounter, playerList.get(playerCounter).getAiLastHitCoordinate());
-        IO.println("Koordinate: " + aiCoordinateToShoot);
+        //IO.println("Koordinate: " + aiCoordinateToShoot);
 
         // 4.Schiessen
         String lastHitCoordinate = ((AiPlayer) playerList.get(playerCounter)).aiShootOnPlayField(playerList, aiOpponentIndex, shootRange, orientation, aiCoordinateToShoot);
@@ -474,37 +479,6 @@ public class Game implements Serializable, ActionListener {
         }
     }
 
-//    private void humanPlayerTurn(ArrayList<Player> playerList, int playerCounter) {
-//        IO.println("Spieler " + playerList.get(playerCounter).getNumber()
-//                + ": " + playerList.get(playerCounter).getName() + " ist am Zug!");
-//
-//        // 1. Auswahl eines verfuegbaren Schiffes.
-//        int shipIndex = playerList.get(playerCounter).getAvailableShipToShoot(playerList, playerCounter);
-//        int shootRange = playerList.get(playerCounter).getShips().get(shipIndex).getShootRange();
-//        boolean orientation = false;
-//        if (shootRange > 1) {
-//            HelperOrientationDialog orientationDialog = new HelperOrientationDialog("Bitte geben Sie die Ausrichtung ein");
-//            orientation = orientationDialog.getOrientation();
-//        }
-//
-//        // 2. Auswahl eines Gegners.
-//        int opponent = playerList.get(playerCounter).getAvailableOpponentsToShoot(playerList, playerCounter);
-//
-//        // 3. Koordinate auf dem Spielfeld auswählen.
-//        String koordinate = playerList.get(playerCounter).coordinateToShoot();
-//
-//        // 4.Schiessen
-//        playerList.get(playerCounter).shootOnPlayField(playerList, opponent, shootRange, orientation, koordinate);
-//        playerList.get(playerCounter).getShips().get(shipIndex).setCurrentReloadTime();
-//
-//        if (Helper.checkIfShipAvailable(playerList, opponent) == false) {
-//            playerList.get(opponent).setLost(true);
-//        }
-//
-//        if (playerList.get(opponent).getisLost() == true) {
-//            IO.println(playerList.get(opponent).getName() + " hat verloren!");
-//        }
-//    }
     
     /**
      * Dem Spielfeld "PlayerView wird ein Actionlistener hinzugefügt.
@@ -541,7 +515,6 @@ public class Game implements Serializable, ActionListener {
      * Dem Spielfeld "OpponentView" wird ein Actionlistener hinzugefügt.
      * Auf dieses Spielfeld kann geschossen werden.
      * Die Koordinate wird gespeichert und an die Schießen Methode weitergegeben.
-
      */
     private void addOpponentViewMatrixListener() {
         for (Player pl : playerList) {
@@ -572,10 +545,11 @@ public class Game implements Serializable, ActionListener {
             });
         }
     }
-/**
- * Den Spieler Buttons wird ein Actionlistener hinzugefügt.
- * Wird ein Button betätigt, wird der Button makiert und ein Event wird ausgelöst.
- */
+    
+	/**
+	 * Den Spieler Buttons wird ein Actionlistener hinzugefügt.
+	 * Wird ein Button betätigt, wird der Button makiert und ein Event wird ausgelöst.
+	 */
     private void addPlayerButtonsActionListener() {
         gameGui.setPlayerButtonsActionListener(new ActionListener() {
 
@@ -598,6 +572,9 @@ public class Game implements Serializable, ActionListener {
         });
     }
 
+    /**
+     * setShipButtonsActionListener wird der Gui hinzugefügt
+     */
     private void addShipButtonsActionListener() {
         gameGui.setShipButtonsActionListener(new ActionListener() {
 
@@ -614,7 +591,12 @@ public class Game implements Serializable, ActionListener {
         });
     }
 
+    /**
+     * Zeigt nächsten Spieler oder die neue Runde an.
+     * Verwendung beim Schiff setzen und schiessen.
+     */
     private void showNextPlayerOrRoundButton() {
+    	//Schiffe setzen
         if (gameState == 0) {
             if (player < playerList.size() - 1) {
                 System.out.println("All ships placed!" + "\n");
@@ -623,22 +605,20 @@ public class Game implements Serializable, ActionListener {
                 gameGui.activateNextPlayerButton();
                 gameGui.showEmptyMatrix();
             } else {
-
                 System.out.println("Click on start round to start the first round." + "\n");
                 gameGui.showEmptyMatrix();
                 gameGui.deActivatePlayerAndShipButtons();
                 playerList.get(player).getPlayerViewGui().disablePlayfield();
                 gameGui.activateStartRoundButton();
                 player = 0;
-
             }
         }
+        //Schiessen
         if (gameState == 1) {
             if (player == playerList.size() - 1) {
                 player = 0;
                 System.out.println("Round " + roundNumber + " finished." + "\n");
                 gameGui.activateNextRoundButton();
-
 
             } else {
                 player++;
@@ -648,6 +628,10 @@ public class Game implements Serializable, ActionListener {
         }
     }
 
+    /**
+     * setStartRoundButtonListener wird der Gui hinzugefügt.
+     * Startet die Schiessrunde. Einmalige Nutzung
+     */
     private void addStartRoundListener() {
         gameGui.setStartRoundButtonListener(new ActionListener() {
 
@@ -668,6 +652,10 @@ public class Game implements Serializable, ActionListener {
         });
     }
     
+    /**
+     * setNextRoundButtonListener wird der Gui hinzugefüt
+     * Läutet die nächste Runde ein beim Schiessen
+     */
     private void addNextRoundListener() {
         gameGui.setNextRoundButtonListener(new ActionListener() {
 
@@ -688,6 +676,10 @@ public class Game implements Serializable, ActionListener {
         });
     }
 
+    /**
+     * Listener für die Auswahl des nächsten Spielers wird implementier.
+     * 
+     */
     private void addNextPlayerButtonListener() {
         gameGui.setNextPlayerButtonListener(new ActionListener() {
 
@@ -698,9 +690,9 @@ public class Game implements Serializable, ActionListener {
                         gameGui.deActivateNextPlayerButton();
                         player++;
                         gameGui.activateSingleShipButton(shipsPlaced);
-
                         addPlayerToGameGui(playerList);
                         playerList.get(player).getPlayerViewGui().enablePlayfield();
+                        setDownReloadTime(playerList, player);
                         if (playerList.get(player) instanceof AiPlayer) {
                             placeAiShip(player, shipsPlaced);
                             gameGui.activatePlayerButton(player);
@@ -708,11 +700,8 @@ public class Game implements Serializable, ActionListener {
                         } else {
                             interactWithPlayer(playerList);
                             gameGui.activatePlayerButton(player);
-
                             addPlayerViewMatrixListener();
-
                         }
-
                     }
                 }
                 if (gameState == 1) {
@@ -732,6 +721,10 @@ public class Game implements Serializable, ActionListener {
 
     }
 
+    /**
+     * Listener für das Starten des Spiels wird hinzugefügt.
+     * Setzen der KI-Schiffe oder Spielerschiffe werden eingeleitet
+     */
     private void addStartGameListener() {
         gameGui.setStartGameButtonListener(new ActionListener() {
 

@@ -93,7 +93,7 @@ public class FieldGui extends JButton implements Serializable {
 			}
 		}
 		else{
-			IO.println("Sie haben bereits auf dieses Feld geschossen. Ein verschenkter Schuss!");
+			//IO.println("Sie haben bereits auf dieses Feld geschossen. Ein verschenkter Schuss!");
 		}
 		return 99;
 	}

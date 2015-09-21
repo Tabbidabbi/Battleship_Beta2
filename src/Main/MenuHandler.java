@@ -22,21 +22,17 @@ import javax.swing.*;
  */
 public class MenuHandler extends JPanel implements ActionListener {
 
-    JPanel panelContainer;
-    MainMenuGui mainMenuGui;
-    SettingsGui settingsGui;
-    InstructionsGui instructionsGui;
-    GameGui gameGui;
-    PlayerViewGui playfieldGui;
-
-    GridBagLayout gameGuiLayout;
-    GridBagConstraints gridBagConstraints;
-
-    CardLayout cardLayout;
-
-    Settings gameSettings;
-
-    Game newGame;
+    private JPanel panelContainer;
+    private MainMenuGui mainMenuGui;
+    private SettingsGui settingsGui;
+    private InstructionsGui instructionsGui;
+    private GameGui gameGui;
+    private PlayerViewGui playfieldGui;
+    private GridBagLayout gameGuiLayout;
+    private GridBagConstraints gridBagConstraints;
+    private CardLayout cardLayout;
+    private Settings gameSettings;
+    private Game newGame;
 
     public MenuHandler() {
 
@@ -46,16 +42,11 @@ public class MenuHandler extends JPanel implements ActionListener {
         setLayout(cardLayout);
         mainMenuGui = new MainMenuGui();
         mainMenuGui.setOpaque(false);
-
         add(mainMenuGui, "menu");
-
         cardLayout.show(this, "menu");
-
         addMenuListener();
-
         setPreferredSize(null);
         setVisible(true);
-
     }
 
     private void addMenuListener() {
@@ -74,7 +65,9 @@ public class MenuHandler extends JPanel implements ActionListener {
         this.newGame.getGameGui().setGameButtonListener(this);
     }
 
-    @Override
+    /**
+     * Reagiert auf Klicks im Hauptmenü
+     */
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
@@ -119,9 +112,6 @@ public class MenuHandler extends JPanel implements ActionListener {
             case "Game-SaveGame":
                 System.out.println("Halllo");
                 break;
-
         }
-
     }
-
 }

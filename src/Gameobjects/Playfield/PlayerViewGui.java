@@ -22,7 +22,6 @@ public class PlayerViewGui extends JPanel {
 
 	private Settings gameSettings;
 	private FieldGui playfieldButton;
-
 	private FieldGui[][] playerViewMatrix;
 	private JPanel playerViewMatrixPanel;
 

@@ -182,7 +182,6 @@ public class AiPlayer extends Player implements Serializable {
 		return aiCoordinate;
 	}
 
-	
 	/**
 	 * Wählt eine zufällige Koorindate
 	 * @param playerList
@@ -203,7 +202,6 @@ public class AiPlayer extends Player implements Serializable {
 		} while (error);
 		return aiCoordinate;
 	}
-	
 	
 	/**
 	 * Methode convertiert einen Kordinaten-String in ein int-Array.

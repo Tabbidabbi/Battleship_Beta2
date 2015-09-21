@@ -22,51 +22,45 @@ import java.util.ArrayList;
 public class GameGui extends JPanel {
 
     private BoxLayout boxLayout;
-
     private FieldGui[][] emptyMatrix;
     private JPanel emptyMatrixPanel;
-
     private CardLayout playFieldCardLayout;
-
     private JPanel playerPlayFieldPanel;
     private JPanel[] playerPlayFieldArray;
-
     private Settings gameSettings;
-
     private JLabel playerListLabel;
     private JButton[] playerButton;
     private JPanel playerListPanel;
-
     private JTextArea textOutputArea;
     private JScrollPane textOutputPanel;
     private JPanel midPanel;
-
     private JLabel shipListLabel;
     private JButton[] shipListButtons;
     private JPanel shipListPanel;
-
     private JPanel componentPanel;
-
     private JButton menuButton, startGameButton, nextPlayerButton, startRoundButton, nextRoundButton;
     private JPanel buttonPanel;
-
     private PrintStream standardOut;
 
+    //Konstruktor
     public GameGui(Settings gameSettings) {
         this.gameSettings = gameSettings;
         setOpaque(false);
         GroupLayout gameGuiLayout = new GroupLayout(this);
 
+        //Panel wird initialisiert
         playerPlayFieldPanel = new JPanel();
         playFieldCardLayout = new CardLayout();
         playerPlayFieldPanel.setLayout(playFieldCardLayout);
         playerPlayFieldPanel.setOpaque(false);
-
+        
+        //Label wird initialisier
         playerListLabel = new JLabel("Spieler: ");
         playerListPanel = new JPanel();
         playerListPanel.add(playerListLabel);
         playerListPanel.setLayout(new BoxLayout(playerListPanel, BoxLayout.Y_AXIS));
-
+        
+        //TextArea wird initisiert
         textOutputArea = new JTextArea();
         textOutputArea.setEditable(false);
         textOutputArea.setLineWrap(true);
@@ -75,12 +69,14 @@ public class GameGui extends JPanel {
         standardOut = System.out;
         System.setOut(printStream);
 
+        //ScrollPane wird initialisert
         textOutputPanel = new JScrollPane(textOutputArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         shipListLabel = new JLabel("Schiffe: ");
         shipListPanel = new JPanel();
         shipListPanel.add(shipListLabel);
         shipListPanel.setLayout(new BoxLayout(shipListPanel, BoxLayout.Y_AXIS));
 
+        //Buttons werden initialisiert
         startGameButton = new JButton("Start-Game");
         startGameButton.setActionCommand("Game-StartGame");
         startGameButton.setFont(new Font("Serif", 10, 13));
@@ -113,9 +109,9 @@ public class GameGui extends JPanel {
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         buttonPanel.add(menuButton);
 
+        //Leere Matrix für die neutrale Ansicht des Spielfeldes
         emptyMatrix = new FieldGui[gameSettings.getPlayfieldSize() + 1][gameSettings.getPlayfieldSize() + 1];
         emptyMatrixPanel = new JPanel();
-
         emptyMatrixPanel.setLayout(new GridLayout(gameSettings.getPlayfieldSize() + 1, gameSettings.getPlayfieldSize() + 1));
 
         for (int i = 0; i < emptyMatrix.length; i++) {
@@ -131,7 +127,6 @@ public class GameGui extends JPanel {
                 emptyMatrix[i][j].setEnabled(false);
                 emptyMatrixPanel.add(emptyMatrix[i][j]);
             }
-
         }
 
         setLayout(gameGuiLayout);
@@ -178,33 +173,54 @@ public class GameGui extends JPanel {
         setPreferredSize(new Dimension(1024, 768));
         setVisible(true);
     }
-
+    
+    /**
+     * playerView wird hinzugefügt.
+     * @param playerNumber
+     * @param playerList
+     */
     public void addPlayerView(int playerNumber, ArrayList<Player> playerList) {
-
         playerPlayFieldPanel.add(playerList.get(playerNumber).getPlayerViewGui(), "Player" + playerNumber);
-
     }
 
+    /**
+     * opponentView wird hinzugefügt.
+     * @param playerNumber
+     * @param playerList
+     */
     public void addOpponentView(int playerNumber, ArrayList<Player> playerList) {
         playerPlayFieldPanel.add(playerList.get(playerNumber).getOpponentViewGui(), "" + playerList.get(playerNumber).getNumber());
     }
 
+    /**
+     * Zeigt Ansicht für die Gegner. Darstellung ohne Schiffe.
+     * @param enemyNumber
+     */
     public void showOpponentView(int enemyNumber) {
         playFieldCardLayout.show(playerPlayFieldPanel, "" + enemyNumber);
     }
 
+    /**
+     * Zeigt emptyMatrix
+     */
     public void showEmptyMatrix() {
 
         playFieldCardLayout.show(playerPlayFieldPanel, "emptyMatrix");
 
     }
 
+    /**
+     * Zeigt playerPlayFieldPanel 
+     * @param playerNumber
+     */
     public void showPlayerPlayField(int playerNumber) {
         playFieldCardLayout.show(playerPlayFieldPanel, "Player" + playerNumber);
 //        repaint();
-
     }
 
+    /**
+     * Schiffsbuttons werden zur Gui hinzugefügt
+     */
     public void addShipButtonsToGameGui(int playerNumber, ArrayList<Player> playerList) {
         shipListButtons = new JButton[playerList.get(playerNumber).getShips().size()];
         Dimension maxButtonSize;
@@ -219,6 +235,10 @@ public class GameGui extends JPanel {
         }
     }
 
+    /**
+     * ActionListener wird zu den Schiffsbuttons hinzugefügt.
+     * @param l
+     */
     public void setShipButtonsActionListener(ActionListener l) {
         for (int i = 0; i < shipListButtons.length; i++) {
             shipListButtons[i].addActionListener(l);
@@ -227,6 +247,10 @@ public class GameGui extends JPanel {
 
     }
 
+    /**
+     * //Spielerbuttons werden zur Gui hinzugefügt
+     * @param playerList
+     */
     public void addPlayerButtonsToGameGui(ArrayList<Player> playerList) {
         playerButton = new JButton[playerList.size()];
         for (int i = 0; i < playerButton.length; i++) {
@@ -239,6 +263,10 @@ public class GameGui extends JPanel {
 
     }
 
+    /**
+     * ActionListener wird den Spielerbuttons hinzugefügt
+     * @param l
+     */
     public void setPlayerButtonsActionListener(ActionListener l) {
         for (int i = 0; i < playerButton.length; i++) {
             playerButton[i].addActionListener(l);
@@ -247,6 +275,10 @@ public class GameGui extends JPanel {
 
     }
 
+    /**
+     * Aktiviert einen Spielerbutton
+     * @param player
+     */
     public void activatePlayerButton(int player) {
         for (int i = 0; i < playerButton.length; i++) {
             playerButton[i].setEnabled(false);
@@ -254,6 +286,10 @@ public class GameGui extends JPanel {
         }
     }
 
+    /**
+     * Prüft, ob ein Schiffsbutton selected ist
+     * @return boolean
+     */
     public boolean checkShipButtonSelection() {
         for (int i = 0; i < shipListButtons.length; i++) {
             if (shipListButtons[i].isSelected()) {
@@ -263,6 +299,10 @@ public class GameGui extends JPanel {
         return false;
     }
 
+    /**
+     * Ändert die Farbe eines Spielerbuttons
+     * @param enemyPlayer
+     */
     public void changePlayerButtonColor(int enemyPlayer) {
 
         for (int i = 0; i < playerButton.length; i++) {
@@ -273,6 +313,10 @@ public class GameGui extends JPanel {
 
     }
 
+    /**
+     * Ändert die Farbe eines Schiffsbuttons
+     * @param shipNumber
+     */
     public void changeShipButtonColor(int shipNumber) {
 
         for (int i = 0; i < shipListButtons.length; i++) {
@@ -284,6 +328,10 @@ public class GameGui extends JPanel {
 
     }
 
+    /**
+     * Aktiviert verfügbare Playerbuttons
+     * @param player
+     */
     public void activateEnemyPlayerButton(int player) {
         for (int i = 0; i < playerButton.length; i++) {
             playerButton[i].setEnabled(true);
@@ -291,6 +339,10 @@ public class GameGui extends JPanel {
         }
     }
 
+    /**
+     * Aktiviert einzelnen Schiffsbutton
+     * @param int ship
+     */
     public void activateSingleShipButton(int ship) {
         for (int i = 0; i < shipListButtons.length; i++) {
             shipListButtons[i].setEnabled(false);
@@ -298,17 +350,21 @@ public class GameGui extends JPanel {
         }
     }
 
+    /**
+     * Aktiviert Schiffsbuttons
+     * @param playerlist
+     * @param player
+     * @return boolean 
+     */
     public boolean activateShipButtons(ArrayList<Player> playerlist, int player) {
 
         int counter = 0;
-
         for (int i = 0; i < shipListButtons.length; i++) {
             if (playerlist.get(player).getShips().get(i).getIsSunk() == false
                     && playerlist.get(player).getShips().get(i).getCurrentReloadTime() == 0) {
                 shipListButtons[i].setEnabled(true);
                 counter++;
             }
-
         }
         if (counter == 0) {
             return false;
@@ -316,6 +372,7 @@ public class GameGui extends JPanel {
         return true;
     }
 
+    //Deaktivier Spieler- und Schiffsbuttons
     public void deActivatePlayerAndShipButtons() {
         for (int i = 0; i < shipListButtons.length; i++) {
             shipListButtons[i].setBackground(new JButton().getBackground());
@@ -328,63 +385,109 @@ public class GameGui extends JPanel {
         }
     }
 
+    /**
+     * Aktiviert startRoundButton
+     */
     public void activateStartRoundButton() {
         this.startRoundButton.setVisible(true);
     }
 
+    /**
+     * Deaktiviert startRoundButton
+     */
     public void deActivateStartRoundButton() {
         this.startRoundButton.setVisible(false);
     }
 
+    /**
+     * Aktiviert nextRoundButton
+     */
     public void activateNextRoundButton() {
         this.nextRoundButton.setVisible(true);
     }
 
+    /**
+     * Deaktiviert nextRoundButton
+     */
     public void deActivateNextRoundButton() {
         this.nextRoundButton.setVisible(false);
     }
 
+    /**
+     * nextRoundButton wird der Gui hintugefügt
+     * @param ActionListener l
+     */
     public void setNextRoundButtonListener(ActionListener l) {
         this.nextRoundButton.addActionListener(l);
     }
 
+    /**
+     * nextPlayerButton wird unsichtbar gemacht
+     */
     public void activateNextPlayerButton() {
         this.nextPlayerButton.setVisible(true);
     }
 
+    /**
+     * startRoundButton wird der Gui hinzugefügt
+     * @param ActionListener l
+     */
     public void setStartRoundButtonListener(ActionListener l) {
         this.startRoundButton.addActionListener(l);
     }
 
+    /**
+     * nextPlayerButton wird deaktiviert
+     */
     public void deActivateNextPlayerButton() {
         this.nextPlayerButton.setVisible(false);
     }
 
+    /**
+     * nextPlayerButton wird der Gui hinzugefügt
+     * @param ActionListener l
+     */
     public void setNextPlayerButtonListener(ActionListener l) {
         this.nextPlayerButton.addActionListener(l);
     }
 
+    /**
+     * menuButton wird der Gui hinzugefügt
+     * @param ActionListener l
+     */
     public void setGameButtonListener(ActionListener l) {
         this.menuButton.addActionListener(l);
     }
 
+    /**
+     * startGameButton wird der Gui hinzugefügt
+     * @param ActionListener l
+     */
     public void setStartGameButtonListener(ActionListener l) {
         this.startGameButton.addActionListener(l);
     }
 
+    /**
+     * startGameButton wird unsichtbar gemacht
+     * @param ActionListener l
+     */
     public void disableStartGameButton() {
         this.startGameButton.setVisible(false);
     }
 
+    /**
+     * CustomOutputStream wird implementiert
+     */
     public class CustomOutputStream extends OutputStream {
 
         private JTextArea textArea;
-
+        
+        //Konstruktor
         public CustomOutputStream(JTextArea textArea) {
             this.textArea = textArea;
         }
 
-        @Override
+        //Befüllen der TextArea
         public void write(int b) throws IOException {
             // redirects data to the text area
             textArea.append(String.valueOf((char) b));
