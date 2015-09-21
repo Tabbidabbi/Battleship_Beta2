@@ -89,6 +89,22 @@ public class Helper {
 		}
 		return result;
 	}
+	
+	/**
+	 * Prüft, ob min. ein Schiff schießen kann
+	 * @param playerList
+	 * @param opponentIndex
+	 * @return
+	 */
+	public static boolean checkShipToShoot(ArrayList<Player> playerList, int playerIndex){
+		boolean result = false;
+		for (int i = 0; i < playerList.get(playerIndex).getShips().size(); i++) {
+			if (playerList.get(playerIndex).getShips().get(i).getCurrentReloadTime() == 0) {
+				result = true;
+			}
+		}
+		return result;
+	}
 
 	/**
 	 * Gibt Gewinner aus

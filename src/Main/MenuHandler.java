@@ -5,6 +5,7 @@
  */
 package Main;
 
+import SaveLoad.*;
 import Game.Game;
 import Game.GameGui;
 import Game.InstructionsGui;
@@ -81,6 +82,7 @@ public class MenuHandler extends JPanel implements ActionListener {
                 cardLayout.show(this, "settings");
                 break;
             case "Menu-LoadGame":
+                newGame = SaveLoad.load();
                 break;
             case "Menu-Instructions":
                 instructionsGui = new InstructionsGui();

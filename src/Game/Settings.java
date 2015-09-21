@@ -1,9 +1,10 @@
 package Game;
 
 import Gameobjects.Player.Player;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Settings {
+public class Settings implements Serializable{
     
 
     private int amountOfPlayer;

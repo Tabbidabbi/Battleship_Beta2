@@ -17,13 +17,13 @@ public class SaveLoad {
 	 */
 	public static void save(Game game){
 		try{
-			String saveName = null;
-			for(int i = 0; i< game.getPlayerList().size(); i++){
-				saveName = saveName + "_" + game.getPlayerList().get(i).getName();
-			}
+//			String saveName = null;
+//			for(int i = 0; i< game.getPlayerList().size(); i++){
+//				saveName = saveName + "_" + game.getPlayerList().get(i).getName();
+//			}
 			
 			//Erzeugt Datei
-			FileOutputStream fileOut = new FileOutputStream("saveName.txt");
+			FileOutputStream fileOut = new FileOutputStream("save.txt");
 			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 			//Schreibt in Datei
 			objectOut.writeObject(game);

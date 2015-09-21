@@ -51,7 +51,7 @@ public class MainMenuGui extends JPanel {
 			menuButtons[i].setFont(new Font("Serif", 10, 13));
 		}
 		menuButtons[0].setActionCommand("Menu-NewGame");
-		menuButtons[1].setActionCommand("Menu-");
+		menuButtons[1].setActionCommand("Menu-LoadGame");
 		menuButtons[2].setActionCommand("Menu-Instructions");
 		menuButtons[3].setActionCommand("Menu-ExitGame");
 
