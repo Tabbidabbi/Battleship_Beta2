@@ -3,6 +3,7 @@ package Game;
 import Gameobjects.Player.AiPlayer;
 import Gameobjects.Player.HumanPlayer;
 import Gameobjects.Player.Player;
+import Gameobjects.Ships.Ship;
 import IO.IO;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -420,16 +421,19 @@ public class Game implements Serializable, ActionListener {
         return true;
     }
 
-    private void setDownReloadTime(ArrayList<Player> playerList, int player) {
-        for (int shipNumber = 0; shipNumber < playerList.get(player).getShips().size(); shipNumber++) {
-            if (playerList.get(player).getShips().get(shipNumber).getCurrentReloadTime() >= 1) {
-                playerList.get(player).getShips().get(shipNumber).setDownReloadTime();
+    private void setDownReloadTime() {
+        for (Player p : playerList) {
+            for (Ship s : p.getShips()) {
+                if (s.getCurrentReloadTime() >= 1) {
+                    s.setDownReloadTime();
+                }
             }
         }
     }
 
     /**
      * Schiessrunde der KI
+     *
      * @param playerList
      * @param playerCounter
      */
@@ -479,10 +483,10 @@ public class Game implements Serializable, ActionListener {
         }
     }
 
-    
     /**
-     * Dem Spielfeld "PlayerView wird ein Actionlistener hinzugefügt.
-     * Wenn das Feld aktiviert wurde, kann man per Maus-Klick ein Event auslösen, welches die verfügbaren Schiffe platziert.
+     * Dem Spielfeld "PlayerView wird ein Actionlistener hinzugefügt. Wenn das
+     * Feld aktiviert wurde, kann man per Maus-Klick ein Event auslösen, welches
+     * die verfügbaren Schiffe platziert.
      */
     private void addPlayerViewMatrixListener() {
 
@@ -512,9 +516,9 @@ public class Game implements Serializable, ActionListener {
     }
 
     /**
-     * Dem Spielfeld "OpponentView" wird ein Actionlistener hinzugefügt.
-     * Auf dieses Spielfeld kann geschossen werden.
-     * Die Koordinate wird gespeichert und an die Schießen Methode weitergegeben.
+     * Dem Spielfeld "OpponentView" wird ein Actionlistener hinzugefügt. Auf
+     * dieses Spielfeld kann geschossen werden. Die Koordinate wird gespeichert
+     * und an die Schießen Methode weitergegeben.
      */
     private void addOpponentViewMatrixListener() {
         for (Player pl : playerList) {
@@ -545,11 +549,11 @@ public class Game implements Serializable, ActionListener {
             });
         }
     }
-    
-	/**
-	 * Den Spieler Buttons wird ein Actionlistener hinzugefügt.
-	 * Wird ein Button betätigt, wird der Button makiert und ein Event wird ausgelöst.
-	 */
+
+    /**
+     * Den Spieler Buttons wird ein Actionlistener hinzugefügt. Wird ein Button
+     * betätigt, wird der Button makiert und ein Event wird ausgelöst.
+     */
     private void addPlayerButtonsActionListener() {
         gameGui.setPlayerButtonsActionListener(new ActionListener() {
 
@@ -592,11 +596,11 @@ public class Game implements Serializable, ActionListener {
     }
 
     /**
-     * Zeigt nächsten Spieler oder die neue Runde an.
-     * Verwendung beim Schiff setzen und schiessen.
+     * Zeigt nächsten Spieler oder die neue Runde an. Verwendung beim Schiff
+     * setzen und schiessen.
      */
     private void showNextPlayerOrRoundButton() {
-    	//Schiffe setzen
+        //Schiffe setzen
         if (gameState == 0) {
             if (player < playerList.size() - 1) {
                 System.out.println("All ships placed!" + "\n");
@@ -616,12 +620,10 @@ public class Game implements Serializable, ActionListener {
         //Schiessen
         if (gameState == 1) {
             if (player == playerList.size() - 1) {
-                player = 0;
                 System.out.println("Round " + roundNumber + " finished." + "\n");
                 gameGui.activateNextRoundButton();
 
             } else {
-                player++;
                 gameGui.deActivatePlayerAndShipButtons();
                 gameGui.activateNextPlayerButton();
             }
@@ -629,8 +631,8 @@ public class Game implements Serializable, ActionListener {
     }
 
     /**
-     * setStartRoundButtonListener wird der Gui hinzugefügt.
-     * Startet die Schiessrunde. Einmalige Nutzung
+     * setStartRoundButtonListener wird der Gui hinzugefügt. Startet die
+     * Schiessrunde. Einmalige Nutzung
      */
     private void addStartRoundListener() {
         gameGui.setStartRoundButtonListener(new ActionListener() {
@@ -646,15 +648,16 @@ public class Game implements Serializable, ActionListener {
                 } else {
                     gameGui.showPlayerPlayField(player);
                     gameGui.activateEnemyPlayerButton(player);
+                    System.out.println("Runde " + roundNumber + " beginnt." + "\n");
                     System.out.println(playerList.get(player).getName() + ", please choose the player you want to attack: ");
                 }
             }
         });
     }
-    
+
     /**
-     * setNextRoundButtonListener wird der Gui hinzugefüt
-     * Läutet die nächste Runde ein beim Schiessen
+     * setNextRoundButtonListener wird der Gui hinzugefüt Läutet die nächste
+     * Runde ein beim Schiessen
      */
     private void addNextRoundListener() {
         gameGui.setNextRoundButtonListener(new ActionListener() {
@@ -663,13 +666,18 @@ public class Game implements Serializable, ActionListener {
             public void actionPerformed(ActionEvent e) {
                 gameGui.deActivateNextRoundButton();
                 gameGui.deActivatePlayerAndShipButtons();
-                
+                setDownReloadTime();
+                roundNumber++;
+                player = 0;
+
                 if (playerList.get(player) instanceof AiPlayer) {
                     gameGui.showPlayerPlayField(player);
                     aiPlayerTurn(playerList, player);
                 } else {
                     gameGui.showPlayerPlayField(player);
                     gameGui.activateEnemyPlayerButton(player);
+                    System.out.println("Runde " + roundNumber + " beginnt." + "\n");
+
                     System.out.println(playerList.get(player).getName() + ", please choose the player you want to attack: ");
                 }
             }
@@ -678,7 +686,7 @@ public class Game implements Serializable, ActionListener {
 
     /**
      * Listener für die Auswahl des nächsten Spielers wird implementier.
-     * 
+     *
      */
     private void addNextPlayerButtonListener() {
         gameGui.setNextPlayerButtonListener(new ActionListener() {
@@ -692,7 +700,6 @@ public class Game implements Serializable, ActionListener {
                         gameGui.activateSingleShipButton(shipsPlaced);
                         addPlayerToGameGui(playerList);
                         playerList.get(player).getPlayerViewGui().enablePlayfield();
-                        setDownReloadTime(playerList, player);
                         if (playerList.get(player) instanceof AiPlayer) {
                             placeAiShip(player, shipsPlaced);
                             gameGui.activatePlayerButton(player);
@@ -705,6 +712,9 @@ public class Game implements Serializable, ActionListener {
                     }
                 }
                 if (gameState == 1) {
+
+                    player++;
+
                     gameGui.deActivateNextPlayerButton();
                     if (playerList.get(player) instanceof AiPlayer) {
                         gameGui.showPlayerPlayField(player);
@@ -722,8 +732,8 @@ public class Game implements Serializable, ActionListener {
     }
 
     /**
-     * Listener für das Starten des Spiels wird hinzugefügt.
-     * Setzen der KI-Schiffe oder Spielerschiffe werden eingeleitet
+     * Listener für das Starten des Spiels wird hinzugefügt. Setzen der
+     * KI-Schiffe oder Spielerschiffe werden eingeleitet
      */
     private void addStartGameListener() {
         gameGui.setStartGameButtonListener(new ActionListener() {
