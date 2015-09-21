@@ -176,52 +176,35 @@ public class AiPlayer extends Player implements Serializable {
 			int xCoordinate = lastHitCoordinateArray[1];
 			int range = playerList.get(opponentIndex).getPlayerViewGui()
 					.getPlayerViewMatrix().length - 1;
+			System.out.println("Range: " +range);
 			// Entpricht oben
-			if (yCoordinate - 1 <= range
+			if ((yCoordinate - 1) < range
 					&& yCoordinate - 1 > 0
-					&& playerList.get(opponentIndex).getPlayerViewGui()
-							.getPlayerViewMatrix()[yCoordinate - 1][xCoordinate]
-							.getIsShot() == false
-					&& playerList.get(opponentIndex).getPlayerViewGui()
-							.getPlayerViewMatrix()[yCoordinate - 1][xCoordinate]
-							.getHasShip() == true) {
+					&& playerList.get(opponentIndex).getPlayerViewGui().getPlayerViewMatrix()[yCoordinate - 1][xCoordinate].getIsShot() == false
+					&& playerList.get(opponentIndex).getPlayerViewGui().getPlayerViewMatrix()[yCoordinate - 1][xCoordinate].getHasShip() == true) {
 				aiCoordinate = Integer.toString(yCoordinate - 1) + "#"
 						+ Integer.toString(xCoordinate);
 			}
 			// Entspricht rechts
-			else if (xCoordinate + 1 <= range
+			else if ((xCoordinate + 1) < range
 					&& xCoordinate + 1 > 0
-					&& playerList.get(opponentIndex).getPlayerViewGui()
-							.getPlayerViewMatrix()[yCoordinate + 1][xCoordinate]
-							.getIsShot() == false
-					&& playerList.get(opponentIndex).getPlayerViewGui()
-							.getPlayerViewMatrix()[yCoordinate + 1][xCoordinate]
-							.getHasShip() == true) {
-				aiCoordinate = Integer.toString(yCoordinate + 1) + "#"
-						+ Integer.toString(xCoordinate);
+					&& playerList.get(opponentIndex).getPlayerViewGui().getPlayerViewMatrix()[yCoordinate][xCoordinate  + 1].getIsShot() == false
+					&& playerList.get(opponentIndex).getPlayerViewGui().getPlayerViewMatrix()[yCoordinate][xCoordinate  + 1].getHasShip() == true) {
+				aiCoordinate = Integer.toString(yCoordinate + 1) + "#"+ Integer.toString(xCoordinate);
 			}
 			// Entspricht unten
-			else if (yCoordinate + 1 <= range
+			else if ((yCoordinate + 1) < range
 					&& yCoordinate + 1 > 0
-					&& playerList.get(opponentIndex).getPlayerViewGui()
-							.getPlayerViewMatrix()[yCoordinate + 1][xCoordinate]
-							.getIsShot() == false
-					&& playerList.get(opponentIndex).getPlayerViewGui()
-							.getPlayerViewMatrix()[yCoordinate + 1][xCoordinate]
-							.getHasShip() == true) {
-				aiCoordinate = Integer.toString(yCoordinate + 1) + "#"
-						+ Integer.toString(xCoordinate);
+					&& playerList.get(opponentIndex).getPlayerViewGui().getPlayerViewMatrix()[yCoordinate + 1][xCoordinate].getIsShot() == false
+					&& playerList.get(opponentIndex).getPlayerViewGui().getPlayerViewMatrix()[yCoordinate + 1][xCoordinate].getHasShip() == true) {
+				aiCoordinate = Integer.toString(yCoordinate + 1) + "#" + Integer.toString(xCoordinate);
 
 			}
 			// Entspricht links
-			else if (xCoordinate - 1 <= range
+			else if ((xCoordinate - 1) < range
 					&& xCoordinate - 1 > 0
-					&& playerList.get(opponentIndex).getPlayerViewGui()
-							.getPlayerViewMatrix()[yCoordinate][xCoordinate - 1]
-							.getIsShot() == false
-					&& playerList.get(opponentIndex).getPlayerViewGui()
-							.getPlayerViewMatrix()[yCoordinate][xCoordinate - 1]
-							.getHasShip() == true) {
+					&& playerList.get(opponentIndex).getPlayerViewGui().getPlayerViewMatrix()[yCoordinate][xCoordinate - 1].getIsShot() == false
+					&& playerList.get(opponentIndex).getPlayerViewGui().getPlayerViewMatrix()[yCoordinate][xCoordinate - 1].getHasShip() == true) {
 
 				aiCoordinate = Integer.toString(yCoordinate) + "#"
 						+ Integer.toString(xCoordinate - 1);
@@ -267,7 +250,7 @@ public class AiPlayer extends Player implements Serializable {
 	 * @return int[] intCoordinates
 	 */
 	public int[] splitCoordinate(String stringCoordinate) {
-		System.out.println("splaiCoordinate: " + stringCoordinate);
+		System.out.println("splitCoordinate: " + stringCoordinate);
 		int[] intCoordinates = new int[2];
 		String[] splitted = stringCoordinate.split("\\#");
 		intCoordinates[0] = Integer.parseInt(splitted[0]);
@@ -290,9 +273,7 @@ public class AiPlayer extends Player implements Serializable {
 	 *            Koordinate, die beschossen werden soll
 	 * @return hitCoordinate Coordinate mit Treffer
 	 */
-	public String aiShootOnPlayField(ArrayList<Player> playerList,
-			int aiOpponentIndex, int shootRange, boolean orientation,
-			String coordinate) {
+	public String aiShootOnPlayField(ArrayList<Player> playerList, int aiOpponentIndex, int shootRange, boolean orientation, String coordinate) {
 		ArrayList<Integer> hitShips;
 		String hitCoordinate = null;
 		int[] tempIntCoordinates = splitCoordinate(coordinate);
@@ -311,15 +292,12 @@ public class AiPlayer extends Player implements Serializable {
 				}
 			}
 		}
-		if (playerList.get(aiOpponentIndex).getPlayerViewGui()
-				.getPlayerViewMatrix()[yCoordinate][xCoordinate].getHasShip() == true) {
-			hitCoordinate = coordinate;
+		if (playerList.get(aiOpponentIndex).getPlayerViewGui().getPlayerViewMatrix()[yCoordinate][xCoordinate].getHasShip() == true){
 			setAiLastHitOpponentIndex(aiOpponentIndex);
 		} else {
 			setAiLastHitOpponentIndex(9);
 		}
-		System.out.println("aiShootOnPlayfield - hitCoordinate: "
-				+ hitCoordinate);
+		System.out.println("aiShootOnPlayfield - hitCoordinate: "+ hitCoordinate);
 		return hitCoordinate;
 	}
 }
