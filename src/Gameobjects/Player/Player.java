@@ -215,6 +215,7 @@ public  abstract class Player implements Serializable {
 		ArrayList<Integer> hitShips;
 		hitShips = playerList.get(selectedPlayer).getPlayerViewGui().setShot(coordinate, shootRange, orientation);
 		playerList.get(selectedPlayer).getOpponentViewGui().setShot(coordinate, shootRange, orientation);
+
 		// Prüfen ob schiffe getroffen
 		for (int i = 0; i < hitShips.size(); i++) {
 			for (int shipIndex = 0; shipIndex < playerList.get(selectedPlayer).getShips().size(); shipIndex++) {

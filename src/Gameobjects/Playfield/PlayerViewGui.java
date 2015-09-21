@@ -107,6 +107,11 @@ public class PlayerViewGui extends JPanel {
             for (int i = 0; i < shootRange; i++) {
                 try {
                         hitShips.add(this.playerViewMatrix[Integer.parseInt(coordinate[0])][Integer.parseInt(coordinate[1]) + i].setIsShot());
+                        if (hitShips.get(i) == 99) {
+                            System.out.println("You hit water!");
+                        }else {
+                            System.out.println("You hit a ship!");
+                        }
                 } catch (ArrayIndexOutOfBoundsException e) {
 //                    e.printStackTrace();
                 }
@@ -115,6 +120,11 @@ public class PlayerViewGui extends JPanel {
             for (int i = 0; i < shootRange; i++) {
                 try {
                         hitShips.add(this.playerViewMatrix[Integer.parseInt(coordinate[0]) + i][Integer.parseInt(coordinate[1])].setIsShot());
+                         if (hitShips.get(i) == 99) {
+                            System.out.println("You hit water!");
+                        }else {
+                            System.out.println("You hit a ship!");
+                        }
                 } catch (ArrayIndexOutOfBoundsException e) {
 //                    e.printStackTrace();
                 }
