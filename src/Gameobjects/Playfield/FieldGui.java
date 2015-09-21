@@ -85,7 +85,6 @@ public class FieldGui extends JButton implements Serializable {
 				this.setText("X");
 				this.setIsHit(true);
 				return getShipNumber();
-				//IO.println("Sie haben ein Schiff getroffen!");
 			}
 			else{
 				this.setText("O");

@@ -111,9 +111,7 @@ public class OpponentViewGui extends JPanel {
         if (orientation == true) {
             for (int i = 0; i < shootRange; i++) {
                 try {
-                    if (this.opponentViewMatrix[Integer.parseInt(coordinate[0])][Integer.parseInt(coordinate[1]) + i].setIsShot() != 99) {
                         hitShips.add(this.opponentViewMatrix[Integer.parseInt(coordinate[0])][Integer.parseInt(coordinate[1]) + i].setIsShot());
-                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
 //                    e.printStackTrace();
                 }
@@ -121,9 +119,7 @@ public class OpponentViewGui extends JPanel {
         } else {
             for (int i = 0; i < shootRange; i++) {
                 try {
-                    if (this.opponentViewMatrix[Integer.parseInt(coordinate[0]) + i][Integer.parseInt(coordinate[1])].setIsShot() != 99) {
                         hitShips.add(this.opponentViewMatrix[Integer.parseInt(coordinate[0]) + i][Integer.parseInt(coordinate[1])].setIsShot());
-                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
 //                    e.printStackTrace();
                 }
@@ -138,9 +134,7 @@ public class OpponentViewGui extends JPanel {
         if (orientation == true) {
             for (int i = 0; i < shootRange; i++) {
                 try {
-                    if (this.opponentViewMatrix[yCoordinate][(xCoordinate) + i].setIsShot() != 99) {
                         hitShips.add(this.opponentViewMatrix[yCoordinate][(xCoordinate) + i].setIsShot());
-                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
 //                    e.printStackTrace();
                 }
@@ -148,9 +142,7 @@ public class OpponentViewGui extends JPanel {
         } else {
             for (int i = 0; i < shootRange; i++) {
                 try {
-                    if (this.opponentViewMatrix[(yCoordinate) + i][(xCoordinate)].setIsShot() != 99) {
                         hitShips.add(this.opponentViewMatrix[(yCoordinate) + i][(xCoordinate)].setIsShot());
-                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
 //                    e.printStackTrace();
                 }
