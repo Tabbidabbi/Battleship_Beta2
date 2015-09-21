@@ -64,7 +64,7 @@ public class OpponentViewGui extends JPanel {
         setVisible(true);
 
     }
-    
+
     public void disableOpponentView() {
         for (int i = 0; i < opponentViewMatrix.length; i++) {
             for (int j = 0; j < opponentViewMatrix[i].length; j++) {
@@ -72,10 +72,15 @@ public class OpponentViewGui extends JPanel {
             }
         }
     }
+
     public void enableOpponentView() {
         for (int i = 0; i < opponentViewMatrix.length; i++) {
             for (int j = 0; j < opponentViewMatrix[i].length; j++) {
                 opponentViewMatrix[i][j].setEnabled(true);
+                opponentViewMatrix[i][0].setBackground(Color.white);
+                opponentViewMatrix[0][j].setBackground(Color.white);
+                opponentViewMatrix[i][0].setEnabled(false);
+                opponentViewMatrix[0][j].setEnabled(false);
             }
         }
     }
@@ -126,15 +131,15 @@ public class OpponentViewGui extends JPanel {
         }
         return hitShips;
     }
-    
-       public ArrayList<Integer> setAiShot(int yCoordinate,int xCoordinate, int shootRange, boolean orientation) {
+
+    public ArrayList<Integer> setAiShot(int yCoordinate, int xCoordinate, int shootRange, boolean orientation) {
         //Array, in dem  die getroffenen Schiffe stehen
         ArrayList<Integer> hitShips = new ArrayList<>();
         if (orientation == true) {
             for (int i = 0; i < shootRange; i++) {
                 try {
                     if (this.opponentViewMatrix[yCoordinate][(xCoordinate) + i].setIsShot() != 99) {
-                        hitShips.add(this.opponentViewMatrix[yCoordinate] [(xCoordinate) + i].setIsShot());
+                        hitShips.add(this.opponentViewMatrix[yCoordinate][(xCoordinate) + i].setIsShot());
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
 //                    e.printStackTrace();
