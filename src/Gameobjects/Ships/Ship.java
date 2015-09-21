@@ -185,7 +185,7 @@ public abstract class Ship implements Serializable{
     	this.hitpoints--;
     	if(getHitpoints() == 0){
     		setSunk(true);
-    		IO.println("Schiff wurde versenkt.");
+    		IO.println("Ship was sunk.");
     		//test
     		IO.println(getNumber()+ " " + getName() + " " + getHitpoints() + " " + getIsSunk());
     	}

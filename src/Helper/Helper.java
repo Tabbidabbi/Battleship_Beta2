@@ -112,9 +112,18 @@ public class Helper {
 	 * @param playerList Spielerliste
 	 */
 	public static void printWinner(ArrayList<Player> playerList) {
+		int counter = 0;
 		for (int i = 0; i < playerList.size(); i++) {
 			if (playerList.get(i).getisLost() == false) {
-				IO.println("Spieler " + playerList.get(i).getName()	+ " hat gewonnen!");
+				counter++;
+				//IO.println("Spieler " + playerList.get(i).getName()	+ " hat gewonnen!");
+			}
+		}
+		if(counter == 1){
+			for (int i = 0; i < playerList.size(); i++) {
+				if (playerList.get(i).getisLost() == false) {
+					IO.println("Spieler " + playerList.get(i).getName()	+ " hat gewonnen!");
+				}
 			}
 		}
 	}

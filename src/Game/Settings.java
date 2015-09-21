@@ -1,12 +1,18 @@
 package Game;
 
 import Gameobjects.Player.Player;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Settings {
+public class Settings implements Serializable{
     
 
-    private int amountOfPlayer;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1029641823135222581L;
+	private int amountOfPlayer;
     private String[] playerNames;
     private int amountOfKIPlayer;
     private boolean[] aiArray;

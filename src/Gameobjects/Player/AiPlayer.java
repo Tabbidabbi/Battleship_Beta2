@@ -176,7 +176,6 @@ public class AiPlayer extends Player implements Serializable {
 			int xCoordinate = lastHitCoordinateArray[1];
 			int range = playerList.get(opponentIndex).getPlayerViewGui()
 					.getPlayerViewMatrix().length - 1;
-			System.out.println("Range: " +range);
 			// Entpricht oben
 			if ((yCoordinate - 1) < range
 					&& yCoordinate - 1 > 0
@@ -213,7 +212,6 @@ public class AiPlayer extends Player implements Serializable {
 				aiCoordinate = getRandomCoordinate(playerList, opponentIndex);
 			}
 		}
-		System.out.println("getAiChooseCoordinate: " + aiCoordinate);
 		return aiCoordinate;
 	}
 
@@ -250,7 +248,6 @@ public class AiPlayer extends Player implements Serializable {
 	 * @return int[] intCoordinates
 	 */
 	public int[] splitCoordinate(String stringCoordinate) {
-		System.out.println("splitCoordinate: " + stringCoordinate);
 		int[] intCoordinates = new int[2];
 		String[] splitted = stringCoordinate.split("\\#");
 		intCoordinates[0] = Integer.parseInt(splitted[0]);
@@ -297,7 +294,6 @@ public class AiPlayer extends Player implements Serializable {
 		} else {
 			setAiLastHitOpponentIndex(9);
 		}
-		System.out.println("aiShootOnPlayfield - hitCoordinate: "+ hitCoordinate);
 		return hitCoordinate;
 	}
 }
