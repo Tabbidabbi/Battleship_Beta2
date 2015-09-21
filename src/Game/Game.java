@@ -475,8 +475,9 @@ public class Game implements Serializable, ActionListener {
         // Nachladezeiten werden gesetzt
         playerList.get(playerCounter).getShips().get(aiShipIndex).setCurrentReloadTime();
         // Es wird geprüft, ob der Gegner verloren hat.
-        if (Helper.checkIfShipAvailable(playerList, aiOpponentIndex) == false) {
-            playerList.get(aiOpponentIndex).setLost(true);
+        if (Helper.checkIfShipAvailable(playerList, selectedPlayer) == false) {
+            playerList.get(selectedPlayer).setLost(true);
+            System.out.println(playerList.get(selectedPlayer).getName() + " lost!");
         }
         if (playerList.get(aiOpponentIndex).getisLost() == true) {
             IO.println(playerList.get(aiOpponentIndex).getName() + " hat verloren!");
@@ -667,7 +668,7 @@ public class Game implements Serializable, ActionListener {
                 setDownReloadTime();
                 roundNumber++;
                 player = 0;
-
+                System.out.println("Runde " + roundNumber + " beginnt." + "\n");
                 if (playerList.get(player) instanceof AiPlayer) {
                     gameGui.showPlayerPlayField(player);
                     aiPlayerTurn(playerList, player);
@@ -675,7 +676,7 @@ public class Game implements Serializable, ActionListener {
                 } else {
                     gameGui.showPlayerPlayField(player);
                     gameGui.activateEnemyPlayerButton(player);
-                    System.out.println("Runde " + roundNumber + " beginnt." + "\n");
+                    
 
                     System.out.println(playerList.get(player).getName() + ", please choose the player you want to attack: ");
                 }
