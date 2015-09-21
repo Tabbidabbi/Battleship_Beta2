@@ -4,9 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/G:/hs/Prog2/Battleship_Beta2/src/Game/Game.java</file>
+            <file>file:/G:/hs/Prog2/Battleship_Beta2/src/Main/MenuHandler.java</file>
             <file>file:/G:/hs/Prog2/Battleship_Beta2/src/Game/GameGui.java</file>
+            <file>file:/G:/hs/Prog2/Battleship_Beta2/src/Gameobjects/Ships/Ship.java</file>
+            <file>file:/G:/hs/Prog2/Battleship_Beta2/src/Main/MainMenuGui.java</file>
             <file>file:/G:/hs/Prog2/Battleship_Beta2/src/Gameobjects/Playfield/OpponentViewGui.java</file>
             <file>file:/G:/hs/Prog2/Battleship_Beta2/src/Main/Battleship.java</file>
+            <file>file:/G:/hs/Prog2/Battleship_Beta2/src/Main/BattleshipGui.java</file>
+            <file>file:/G:/hs/Prog2/Battleship_Beta2/src/Game/SettingsGui.java</file>
         </group>
     </open-files>
 </project-private>
