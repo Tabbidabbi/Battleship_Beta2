@@ -667,7 +667,7 @@ public class Game implements Serializable, ActionListener {
                 setDownReloadTime();
                 roundNumber++;
                 player = 0;
-
+                System.out.println("Runde " + roundNumber + " beginnt." + "\n");
                 if (playerList.get(player) instanceof AiPlayer) {
                     gameGui.showPlayerPlayField(player);
                     aiPlayerTurn(playerList, player);
@@ -675,7 +675,7 @@ public class Game implements Serializable, ActionListener {
                 } else {
                     gameGui.showPlayerPlayField(player);
                     gameGui.activateEnemyPlayerButton(player);
-                    System.out.println("Runde " + roundNumber + " beginnt." + "\n");
+                    
 
                     System.out.println(playerList.get(player).getName() + ", please choose the player you want to attack: ");
                 }
