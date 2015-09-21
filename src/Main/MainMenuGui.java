@@ -24,7 +24,7 @@ public class MainMenuGui extends JPanel {
 	private JPanel headerPanel;
 	public JPanel menuPanel;
 	private JButton[] menuButtons = { new JButton("New Game"),
-			new JButton("Network"), new JButton("HowTo"),
+			new JButton("Load"), new JButton("HowTo"),
 			new JButton("Exit Game") };
 
 	public CardLayout cardLayout = new CardLayout();
@@ -51,7 +51,7 @@ public class MainMenuGui extends JPanel {
 			menuButtons[i].setFont(new Font("Serif", 10, 13));
 		}
 		menuButtons[0].setActionCommand("Menu-NewGame");
-		menuButtons[1].setActionCommand("Menu-Network");
+		menuButtons[1].setActionCommand("Menu-");
 		menuButtons[2].setActionCommand("Menu-Instructions");
 		menuButtons[3].setActionCommand("Menu-ExitGame");
 

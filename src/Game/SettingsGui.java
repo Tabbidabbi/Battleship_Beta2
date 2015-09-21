@@ -43,9 +43,9 @@ public class SettingsGui extends JPanel {
     private JPanel[] singlePlayerPanel = new JPanel[6];
     private JPanel playerPanel;
     private JSpinner[] setAmmountOfShipsSpinner;
-    private JLabel[] shipLabel = {new JLabel("Ammount of Destroyers:"),
-        new JLabel("Ammount of Frigates:"), new JLabel("Ammount of Corvettes:"),
-        new JLabel("Ammount of Submarines:")};
+    private JLabel[] shipLabel = {new JLabel("Amount of Destroyers:"),
+        new JLabel("Amount of Frigates:"), new JLabel("Amount of Corvettes:"),
+        new JLabel("Amount of Submarines:")};
     private JPanel[] singleShipPanel = new JPanel[4];
     private JPanel shipFieldsPanel;
     private JLabel playFieldSizeLabel;
