@@ -644,7 +644,7 @@ public class Game implements Serializable, ActionListener {
                 if (playerList.get(player) instanceof AiPlayer) {
                     gameGui.showPlayerPlayField(player);
                     aiPlayerTurn(playerList, player);
-                    gameGui.activateNextPlayerButton();
+                    showNextPlayerOrRoundButton();
                 } else {
                     gameGui.showPlayerPlayField(player);
                     gameGui.activateEnemyPlayerButton(player);
@@ -673,6 +673,7 @@ public class Game implements Serializable, ActionListener {
                 if (playerList.get(player) instanceof AiPlayer) {
                     gameGui.showPlayerPlayField(player);
                     aiPlayerTurn(playerList, player);
+                    showNextPlayerOrRoundButton();
                 } else {
                     gameGui.showPlayerPlayField(player);
                     gameGui.activateEnemyPlayerButton(player);
@@ -719,6 +720,7 @@ public class Game implements Serializable, ActionListener {
                     if (playerList.get(player) instanceof AiPlayer) {
                         gameGui.showPlayerPlayField(player);
                         aiPlayerTurn(playerList, player);
+                        showNextPlayerOrRoundButton();
                     } else {
                         gameGui.showPlayerPlayField(player);
                         gameGui.activateEnemyPlayerButton(player);

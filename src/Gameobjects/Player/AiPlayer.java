@@ -2,7 +2,9 @@ package Gameobjects.Player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import Game.Settings;
+import Gameobjects.Ships.Ship;
 
 public class AiPlayer extends Player implements Serializable {
 
@@ -235,10 +237,10 @@ public class AiPlayer extends Player implements Serializable {
         hitShips = playerList.get(aiOpponentIndex).getPlayerViewGui().setAiShot(yCoordinate, xCoordinate, shootRange,orientation);
         playerList.get(aiOpponentIndex).getOpponentViewGui().setAiShot(yCoordinate, xCoordinate, shootRange, orientation);
         //Prüft, ob schiffe getroffen wurden und setzt Hitpoints
-        for(Integer ship : hitShips){
-            for (int shipIndex = 0; shipIndex < playerList.get(aiOpponentIndex).getShips().size(); shipIndex++) {
-        		if (playerList.get(aiOpponentIndex).getShips().get(shipIndex).getNumber() == hitShips.get(ship)) {
-                	playerList.get(aiOpponentIndex).getShips().get(shipIndex).setHitpoints();
+        for(int i = 0; i < hitShips.size(); i++){
+            for (Ship ship : playerList.get(aiOpponentIndex).getShips()) {
+        		if (ship.getNumber() == hitShips.get(i)) {
+                	ship.setHitpoints();
                 }
         	}
         }
