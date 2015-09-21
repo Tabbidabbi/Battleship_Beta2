@@ -382,10 +382,10 @@ public class GameGui extends JPanel {
                 counter++;
             } else if (playerlist.get(player).getShips().get(i).getIsSunk() == true){
                  System.out.println("Ship " + playerlist.get(player).getShips().get(i).getName() + " "
-                        + (playerlist.get(player).getShips().get(i).getNumber() + 1) + " is destroyed!");
+                        + playerlist.get(player).getShips().get(i).getNumber() + " is destroyed!");
             } else {
                 System.out.println("Ship " + playerlist.get(player).getShips().get(i).getName() + " "
-                        + (playerlist.get(player).getShips().get(i).getNumber() + 1) + " have a reload time!");
+                        + playerlist.get(player).getShips().get(i).getNumber() + " have a reload time!");
             }
         }
         if (counter == 0) {
