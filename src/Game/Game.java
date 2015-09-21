@@ -3,6 +3,7 @@ package Game;
 import Gameobjects.Player.AiPlayer;
 import Gameobjects.Player.HumanPlayer;
 import Gameobjects.Player.Player;
+import Gameobjects.Playfield.PlayerViewGui;
 import Gameobjects.Ships.Ship;
 import IO.IO;
 
@@ -56,7 +57,6 @@ public class Game implements Serializable, ActionListener {
         System.out.println("################# Welcome to Battleship #################" + "\n");
         addPlayerToGameGui(playerList);
         addGameGui();
-
     }
 
     /**
@@ -442,7 +442,8 @@ public class Game implements Serializable, ActionListener {
      * @param playerCounter
      */
     private void aiPlayerTurn(ArrayList<Player> playerList, int playerCounter) {
-    	if(Helper.checkIfShipAvailable(playerList, player)){        
+    	if(Helper.checkShipToShoot(playerList, player)){   
+    		
 	        //1. Auswahl des Schiffes
 	        IO.println(playerList.get(playerCounter).getName() + " ist am Zug! \n");
 	        //Vorher casten
@@ -631,6 +632,7 @@ public class Game implements Serializable, ActionListener {
         if (gameState == 1) {
             if (player == playerList.size() - 1) {
                 System.out.println("Round " + roundNumber + " finished." + "\n");
+                SaveLoad.save(this);
                 gameGui.activateNextRoundButton();
 
             } else {
@@ -681,7 +683,7 @@ public class Game implements Serializable, ActionListener {
                 player = 0;
                 System.out.println("Round " + roundNumber + " begin." + "\n");
                 if (playerList.get(player) instanceof AiPlayer) {
-                    gameGui.showPlayerPlayField(player);
+                	gameGui.showPlayerPlayField(player);
                 	aiPlayerTurn(playerList, player);
                     showNextPlayerOrRoundButton();
                 } else {
