@@ -475,8 +475,9 @@ public class Game implements Serializable, ActionListener {
         // Nachladezeiten werden gesetzt
         playerList.get(playerCounter).getShips().get(aiShipIndex).setCurrentReloadTime();
         // Es wird geprüft, ob der Gegner verloren hat.
-        if (Helper.checkIfShipAvailable(playerList, aiOpponentIndex) == false) {
-            playerList.get(aiOpponentIndex).setLost(true);
+        if (Helper.checkIfShipAvailable(playerList, selectedPlayer) == false) {
+            playerList.get(selectedPlayer).setLost(true);
+            System.out.println(playerList.get(selectedPlayer).getName() + " lost!");
         }
         if (playerList.get(aiOpponentIndex).getisLost() == true) {
             IO.println(playerList.get(aiOpponentIndex).getName() + " hat verloren!");
