@@ -46,7 +46,7 @@ public abstract class Ship implements Serializable{
         this.shootRange = shootRange;
         this.hitpoints = size;
         this.name = name;
-        this.description = "You choosed " + name + " : "
+        this.description = "You choosed " + name + (number + 1) + " : "
                                     + "The " + name + " can shoot on " + shootRange + "\n" + " (contigous) fields and has a reload time "
                 + " of  " + reloadTime + " rounds.";
     }
@@ -185,9 +185,9 @@ public abstract class Ship implements Serializable{
     	this.hitpoints--;
     	if(getHitpoints() == 0){
     		setSunk(true);
-    		IO.println("Schiff wurde versenkt.");
+    		IO.println("Ship " + getName() + " sunk.");
     		//test
-    		IO.println(getNumber()+ " " + getName() + " " + getHitpoints() + " " + getIsSunk());
+//    		IO.println(getNumber()+ " " + getName() + " " + getHitpoints() + " " + getIsSunk());
     	}
     }
 

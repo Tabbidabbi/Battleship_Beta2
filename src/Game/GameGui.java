@@ -380,6 +380,12 @@ public class GameGui extends JPanel {
                     && playerlist.get(player).getShips().get(i).getCurrentReloadTime() == 0) {
                 shipListButtons[i].setEnabled(true);
                 counter++;
+            } else if (playerlist.get(player).getShips().get(i).getIsSunk() == true){
+                 System.out.println("Ship " + playerlist.get(player).getShips().get(i).getName() + " "
+                        + (playerlist.get(player).getShips().get(i).getNumber() + 1) + " is destroyed!");
+            } else {
+                System.out.println("Ship " + playerlist.get(player).getShips().get(i).getName() + " "
+                        + (playerlist.get(player).getShips().get(i).getNumber() + 1) + " have a reload time!");
             }
         }
         if (counter == 0) {

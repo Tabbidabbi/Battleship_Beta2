@@ -100,14 +100,18 @@ public class Game implements Serializable, ActionListener {
     private void interactWithPlayer(ArrayList<Player> playerList) {
         System.out.println("Player " + playerList.get(player).getName() + ", " + " its your turn.");
         System.out.println("Please place all available ships." + "\n");
-        System.out.println("Click on the playfield to place " + playerList.get(player).getShips().get(shipsPlaced).getName() + " : ");
+        System.out.println("Click on the playfield to place " 
+                + playerList.get(player).getShips().get(shipsPlaced).getName() + " " + 
+                + playerList.get(player).getShips().get(shipsPlaced).getNumber() + " : ");
     }
 
     /**
      * Textinteraktion mit dem Spieler
      */
     private void nextShipDialog() {
-        System.out.println("Click on the playfield " + playerList.get(player).getShips().get(shipsPlaced).getName() + " : ");
+        System.out.println("Click on the playfield to place " 
+                + playerList.get(player).getShips().get(shipsPlaced).getName() + " " + 
+                + playerList.get(player).getShips().get(shipsPlaced).getNumber() + " : ");
     }
 
     /**
@@ -480,7 +484,7 @@ public class Game implements Serializable, ActionListener {
             System.out.println(playerList.get(selectedPlayer).getName() + " lost!");
         }
         if (playerList.get(aiOpponentIndex).getisLost() == true) {
-            IO.println(playerList.get(aiOpponentIndex).getName() + " hat verloren!");
+            IO.println(playerList.get(aiOpponentIndex).getName() + " lost!");
         }
     }
 
@@ -498,7 +502,7 @@ public class Game implements Serializable, ActionListener {
                 HelperOrientationDialog placeShipOrientationDialog = new HelperOrientationDialog("Please choose what orientation the ship should have: ", "ship");
                 shipOrientation = placeShipOrientationDialog.getOrientation();
                 if (!checkShipPlacement(e, shipOrientation)) {
-                    System.out.println("The Ship cant be placed please try again.");
+                    System.out.println("The ship cant be placed please try again.");
                 } else {
                     placeShip(e, shipOrientation, playerList);
                     shipsPlaced++;
@@ -569,7 +573,6 @@ public class Game implements Serializable, ActionListener {
                         System.out.println("Choose the ship you want to shoot with: ");
                         playerList.get(selectedPlayer).getOpponentViewGui().enableOpponentView();
                     } else {
-                        System.out.println("All ships have a reload time.");
                         showNextPlayerOrRoundButton();
                     }
                 }
